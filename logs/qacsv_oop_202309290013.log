@@ -1,0 +1,111 @@
+Sep 29 00:13:15 inf_ > Ininciando ejecución de: qacsv_oop
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list.xlsx' ~~~~
+        --> LOG:  logs/qacsv_oop_202309290013.log
+Sep 29 00:13:15 err_ >ERROR en 6.1.! Falló la lectura de listas/CSVs_list.xlsx
+        [Errno 2] No such file or directory: 'listas/CSVs_list.xlsx'
+Sep 29 00:13:15 err_ ABORT Execution: llamado a la función exit_prg()
+Sep 29 00:13:50 inf_ > Ininciando ejecución de: qacsv_oop
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list.xlsx' ~~~~
+        --> LOG:  logs/qacsv_oop_202309290013.log
+Sep 29 00:13:52 ok_ > listas/CSVs_list.xlsx leído correctamente:
+  Periodo   Carpeta Nombre archivo CSV                   Server Base
+0  201702  SubDIR_1         FN 1°parte  Localhost AdventureWorks2019
+1     NaN       NaN         FN 2°parte    (local) AdventureWorks2019
+2     NaN       NaN           FileName                           NaN
+Sep 29 00:13:52 ok_ > Fecha leída, Periodo: 201702.- Calculados; Fecha de corte: 20170228,
+            Corte del mismo mes del año anterior: 20160229 
+Sep 29 00:13:52 inf_ Conexiones a DB a establecer:
+ ['Localhost AdventureWorks2019' '(local) AdventureWorks2019'
+ 'Localhost BikeStores']
+Sep 29 00:13:52 inf_  DB_ Conectando con: Localhost AdventureWorks2019...
+Sep 29 00:13:52 ok_ > DB_ Conexión con Localhost AdventureWorks2019 ESTABLECIDA! (1 _ * Localhost AdventureWorks2019 *)
+Sep 29 00:13:52 inf_ Iniciando procesamiento de queries a Localhost AdventureWorks2019 - 3 queries
+Sep 29 00:13:52 inf_ 1 _ < FN 1°parte.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/SubDIR_1/FN 1°parte.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 278 
+Sep 29 00:13:52 ok_ 1 _ < FN 1°parte.csv > Creado exitosamente 'C:/PCI/CVS_201702/SubDIR_1/FN 1°parte.csv' 
+Sep 29 00:13:52 inf_ 2 _ < just a file.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/SubDIR_2/just a file.csv'
+ Query:
+select ProductID, Name, ProductNumber, ListPrice, SellStartDate, rowguid from Production.Product 
+Sep 29 00:13:52 ok_ 2 _ < just a file.csv > Creado exitosamente 'C:/PCI/CVS_201702/SubDIR_2/just a file.csv' 
+Sep 29 00:13:52 inf_ 3 _ < FN2-gtías.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/SubDIR_2/FN2-gtías.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 123 
+Sep 29 00:13:52 ok_ 3 _ < FN2-gtías.csv > Creado exitosamente 'C:/PCI/CVS_201702/SubDIR_2/FN2-gtías.csv' 
+Sep 29 00:13:52 inf_  DB_ Conectando con: (local) AdventureWorks2019...
+Sep 29 00:13:52 ok_ > DB_ Conexión con (local) AdventureWorks2019 ESTABLECIDA! (2 _ * (local) AdventureWorks2019 *)
+Sep 29 00:13:52 inf_ Iniciando procesamiento de queries a (local) AdventureWorks2019 - 4 queries
+Sep 29 00:13:52 inf_ 4 _ < FN 2°parte.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/SubDIR_1/FN 2°parte.csv'
+ Query:
+select * from Person.Person where EmailPromotion=2 
+Sep 29 00:13:52 ok_ 4 _ < FN 2°parte.csv > Creado exitosamente 'C:/PCI/CVS_201702/SubDIR_1/FN 2°parte.csv' 
+Sep 29 00:13:52 inf_ 5 _ < FileName.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/SubDIR_1/FileName.csv'
+ Query:
+select * from Person.Person where EmailPromotion=9 
+Sep 29 00:13:52 ok_ 5 _ < FileName.csv > Creado exitosamente 'C:/PCI/CVS_201702/SubDIR_1/FileName.csv' 
+Sep 29 00:13:52 inf_ 6 _ < gip results badg.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/SubDIR_2/gip results badg.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 276 
+Sep 29 00:13:52 ok_ 6 _ < gip results badg.csv > Creado exitosamente 'C:/PCI/CVS_201702/SubDIR_2/gip results badg.csv' 
+Sep 29 00:13:52 inf_ 7 _ < ONUI2.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/SubDIR_2/ONUI2.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 281 
+Sep 29 00:13:52 ok_ 7 _ < ONUI2.csv > Creado exitosamente 'C:/PCI/CVS_201702/SubDIR_2/ONUI2.csv' 
+Sep 29 00:13:52 inf_  DB_ Conectando con: Localhost BikeStores...
+Sep 29 00:13:52 ok_ > DB_ Conexión con Localhost BikeStores ESTABLECIDA! (3 _ * Localhost BikeStores *)
+Sep 29 00:13:52 inf_ Iniciando procesamiento de queries a Localhost BikeStores - 3 queries
+Sep 29 00:13:52 inf_ 8 _ < Medium consumption filter.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/dir_name/Medium consumption filter.csv'
+ Query:
+select * from sales.orders where order_status=4 and order_date='2016-02-07' 
+Sep 29 00:13:52 ok_ 8 _ < Medium consumption filter.csv > Creado exitosamente 'C:/PCI/CVS_201702/dir_name/Medium consumption filter.csv' 
+Sep 29 00:13:52 inf_ 9 _ < Categ.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/dir_name/Categ.csv'
+ Query:
+select * from production.brands 
+Sep 29 00:13:52 ok_ 9 _ < Categ.csv > Creado exitosamente 'C:/PCI/CVS_201702/dir_name/Categ.csv' 
+Sep 29 00:13:52 inf_ 10 _ < client PD x card-operation.csv > Iniciando armado archivo 'C:/PCI/CVS_201702/z_LastDir/client PD x card-operation.csv'
+ Query:
+select * from production.brands where brand_name LIKE '%u%' 
+Sep 29 00:13:52 ok_ 10 _ < client PD x card-operation.csv > Creado exitosamente 'C:/PCI/CVS_201702/z_LastDir/client PD x card-operation.csv' 
+Sep 29 00:13:52 ok_ >ok_ Se movió listas/CSVs_list.xlsx a listas_hechas/CSVs_list_202309290013.xlsx
+Sep 29 00:13:52 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list.xlsx                             
+Archivo de LOGs           ->  logs/qacsv_oop_202309290013.log                   
+Lista CSVs Renombrada     ->  listas_hechas/CSVs_list_202309290013.xlsx         
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+           10                       10                        0            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+           10                       10                        0            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (0):
+
+ - Lista de Errores de CSVs (0):
+
+ - Lista de CSVs Creados (10):
+   1 1 _ < FN 1°parte.csv > - C:/PCI/CVS_201702/SubDIR_1/FN 1°parte.csv
+   2 2 _ < just a file.csv > - C:/PCI/CVS_201702/SubDIR_2/just a file.csv
+   3 3 _ < FN2-gtías.csv > - C:/PCI/CVS_201702/SubDIR_2/FN2-gtías.csv
+   4 4 _ < FN 2°parte.csv > - C:/PCI/CVS_201702/SubDIR_1/FN 2°parte.csv
+   5 5 _ < FileName.csv > - C:/PCI/CVS_201702/SubDIR_1/FileName.csv
+   6 6 _ < gip results badg.csv > - C:/PCI/CVS_201702/SubDIR_2/gip results badg.csv
+   7 7 _ < ONUI2.csv > - C:/PCI/CVS_201702/SubDIR_2/ONUI2.csv
+   8 8 _ < Medium consumption filter.csv > - C:/PCI/CVS_201702/dir_name/Medium consumption filter.csv
+   9 9 _ < Categ.csv > - C:/PCI/CVS_201702/dir_name/Categ.csv
+   10 10 _ < client PD x card-operation.csv > - C:/PCI/CVS_201702/z_LastDir/client PD x card-operation.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (0):
+
+ - Lista de Errores de conexiones a DBs (0):
+
+ - Lista de DBs Conectadas (3):
+   1 1 _ * Localhost AdventureWorks2019 *
+   2 2 _ * (local) AdventureWorks2019 *
+   3 3 _ * Localhost BikeStores *
+
+

@@ -1,0 +1,171 @@
+Sep 29 00:39:46 inf_ > Ininciando ejecución de: qacsv_oop
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list.xlsx' ~~~~
+        --> LOG:  logs/qacsv_oop_202309290039.log
+Sep 29 00:39:48 ok_ > listas/CSVs_list.xlsx leído correctamente:
+  Periodo   Carpeta   Nombre archivo CSV                   Server Base
+0  202302  SubDIR_1           FN 1°parte  Localhost AdventureWorks2019
+1     NaN       NaN           FN 2°parte                           NaN
+2     NaN       NaN  SQL_NO_Seg_Horrible                           NaN
+Sep 29 00:39:48 ok_ > Fecha leída, Periodo: 202302.- Calculados; Fecha de corte: 20230228,
+            Corte del mismo mes del año anterior: 20220228 
+Sep 29 00:39:48 inf_ Conexiones a DB a establecer:
+ ['Localhost AdventureWorks2019' 'NO_Existe BikeStores'
+ 'Localhost BikeStores' '(local) AdventureWorks2019' 'Localhost NO_Existe'
+ 'Localhost NO_Existe2']
+Sep 29 00:39:48 inf_  DB_ Conectando con: Localhost AdventureWorks2019...
+Sep 29 00:39:48 ok_ > DB_ Conexión con Localhost AdventureWorks2019 ESTABLECIDA! (1 _ * Localhost AdventureWorks2019 *)
+Sep 29 00:39:48 inf_ Iniciando procesamiento de queries a Localhost AdventureWorks2019 - 6 queries
+Sep 29 00:39:48 inf_ 1 _ < FN 1°parte.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_1/FN 1°parte.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 278 
+Sep 29 00:39:48 ok_ 1 _ < FN 1°parte.csv > Creado exitosamente 'C:/PC_err/CVS_202302/SubDIR_1/FN 1°parte.csv' 
+Sep 29 00:39:48 inf_ 2 _ < FN 2°parte.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_1/FN 2°parte.csv'
+ Query:
+select * from Person.Person where EmailPromotion=2 
+Sep 29 00:39:48 ok_ 2 _ < FN 2°parte.csv > Creado exitosamente 'C:/PC_err/CVS_202302/SubDIR_1/FN 2°parte.csv' 
+Sep 29 00:39:48 inf_ 3 _ < SQL_NO_Seg_Horrible.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_1/SQL_NO_Seg_Horrible.csv'
+ Query:
+groso Error 
+Sep 29 00:39:48 err_ 3 _ < SQL_NO_Seg_Horrible.csv >ERROR en 10.c! Query a la DB NO segura!
+Sep 29 00:39:48 inf_ 4 _ < FN2-gtías.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_2/FN2-gtías.csv'
+ Query:
+select ProductID, Name, ProductNumber, ListPrice, SellStartDate, rowguid from Production.Product 
+Sep 29 00:39:48 ok_ 4 _ < FN2-gtías.csv > Creado exitosamente 'C:/PC_err/CVS_202302/SubDIR_2/FN2-gtías.csv' 
+Sep 29 00:39:48 inf_ 5 _ < SQL_VACIO_1.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/dir_name/SQL_VACIO_1.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 123 
+Sep 29 00:39:48 ok_ 5 _ < SQL_VACIO_1.csv > Creado exitosamente 'C:/PC_err/CVS_202302/dir_name/SQL_VACIO_1.csv' 
+Sep 29 00:39:48 inf_ 6 _ < FileName.csv > Iniciando armado archivo 'C:/PC_er1/CVS_202302/SubDIR_1/FileName.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 278 
+Sep 29 00:39:48 ok_ 6 _ < FileName.csv > Creado exitosamente 'C:/PC_er1/CVS_202302/SubDIR_1/FileName.csv' 
+Sep 29 00:39:48 inf_  DB_ Conectando con: NO_Existe BikeStores...
+Sep 29 00:40:22 err_ >DB_ERROR en 10.a! Falló la conexión con NO_Existe BikeStores
+            ('08001', '[08001] [Microsoft][ODBC Driver 17 for SQL Server]Named Pipes Provider: Could not open a connection to SQL Server [53].  (53) (SQLDriverConnect); [08001] [Microsoft][ODBC Driver 17 for SQL Server]Login timeout expired (0); [08001] [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute (0); [08001] [Microsoft][ODBC Driver 17 for SQL Server]A network-related or instance-specific error has occurred while establishing a connection to SQL Server. Server is not found or not accessible. Check if instance name is correct and if SQL Server is configured to allow remote connections. For more information see SQL Server Books Online. (53)')
+Sep 29 00:40:22 inf_  DB_ Conectando con: Localhost BikeStores...
+Sep 29 00:40:22 ok_ > DB_ Conexión con Localhost BikeStores ESTABLECIDA! (3 _ * Localhost BikeStores *)
+Sep 29 00:40:22 inf_ Iniciando procesamiento de queries a Localhost BikeStores - 6 queries
+Sep 29 00:40:22 inf_ 7 _ < FileName.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_2/FileName.csv'
+ Query:
+select * from sales.orders where order_status=4 and order_date='2016-02-07' 
+Sep 29 00:40:22 ok_ 7 _ < FileName.csv > Creado exitosamente 'C:/PC_err/CVS_202302/SubDIR_2/FileName.csv' 
+Sep 29 00:40:22 inf_ 8 _ < SQL_NO_Seg_INSERT.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_2/SQL_NO_Seg_INSERT.csv'
+ Query:
+insert into production.brands (brand_name) values ('JM'); 
+Sep 29 00:40:22 err_ 8 _ < SQL_NO_Seg_INSERT.csv >ERROR en 10.c! Query a la DB NO segura!
+Sep 29 00:40:22 inf_ 9 _ < SQL_NO_Table.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_2/SQL_NO_Table.csv'
+ Query:
+select * from No_Existe 
+Sep 29 00:40:22 err_ 9 _ < SQL_NO_Table.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'No_Existe'. (208) (SQLExecDirectW)")
+Sep 29 00:40:22 inf_ 10 _ < client PD x card-operation.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_3/client PD x card-operation.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 278 
+Sep 29 00:40:22 err_ 10 _ < client PD x card-operation.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'Sales.SalesPersonQuotaHistory'. (208) (SQLExecDirectW)")
+Sep 29 00:40:22 inf_ 11 _ < SQL_NO_Seg_DELETE.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_3/SQL_NO_Seg_DELETE.csv'
+ Query:
+delete from production.brands where brand_name='JM'; 
+Sep 29 00:40:22 err_ 11 _ < SQL_NO_Seg_DELETE.csv >ERROR en 10.c! Query a la DB NO segura!
+Sep 29 00:40:22 inf_ 12 _ < SRV_NO_Existe1.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/SubDIR_3/SRV_NO_Existe1.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 278 
+Sep 29 00:40:22 err_ 12 _ < SRV_NO_Existe1.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'Sales.SalesPersonQuotaHistory'. (208) (SQLExecDirectW)")
+Sep 29 00:40:22 inf_  DB_ Conectando con: (local) AdventureWorks2019...
+Sep 29 00:40:22 ok_ > DB_ Conexión con (local) AdventureWorks2019 ESTABLECIDA! (4 _ * (local) AdventureWorks2019 *)
+Sep 29 00:40:22 inf_ Iniciando procesamiento de queries a (local) AdventureWorks2019 - 5 queries
+Sep 29 00:40:22 inf_ 13 _ < Categ.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/dir_name/Categ.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 276 
+Sep 29 00:40:22 ok_ 13 _ < Categ.csv > Creado exitosamente 'C:/PC_err/CVS_202302/dir_name/Categ.csv' 
+Sep 29 00:40:22 inf_ 14 _ < ONUI2.csv > Iniciando armado archivo 'C:/PC_err/CVS_202302/dir_name/ONUI2.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 281 
+Sep 29 00:40:22 ok_ 14 _ < ONUI2.csv > Creado exitosamente 'C:/PC_err/CVS_202302/dir_name/ONUI2.csv' 
+Sep 29 00:40:22 inf_ 15 _ < FN2-gtías.csv > Iniciando armado archivo 'C:/PC_er1/CVS_202302/SubDIR_1/FN2-gtías.csv'
+ Query:
+select * from Person.Person where EmailPromotion=2 
+Sep 29 00:40:22 ok_ 15 _ < FN2-gtías.csv > Creado exitosamente 'C:/PC_er1/CVS_202302/SubDIR_1/FN2-gtías.csv' 
+Sep 29 00:40:22 inf_ 16 _ < SQL_VACIO_2.csv > Iniciando armado archivo 'C:/PC_er1/CVS_202302/SubDIR_1/SQL_VACIO_2.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory  where BusinessEntityID = 9 
+Sep 29 00:40:22 ok_ 16 _ < SQL_VACIO_2.csv > Creado exitosamente 'C:/PC_er1/CVS_202302/SubDIR_1/SQL_VACIO_2.csv' 
+Sep 29 00:40:22 inf_ 17 _ < client PD x card-operation.csv > Iniciando armado archivo 'C:/PC_er1/CVS_202302/SubDIR_1/client PD x card-operation.csv'
+ Query:
+select * from Sales.SalesPersonQuotaHistory order by BusinessEntityID DESC; 
+Sep 29 00:40:22 ok_ 17 _ < client PD x card-operation.csv > Creado exitosamente 'C:/PC_er1/CVS_202302/SubDIR_1/client PD x card-operation.csv' 
+Sep 29 00:40:22 inf_  DB_ Conectando con: Localhost NO_Existe...
+Sep 29 00:40:22 err_ >DB_ERROR en 10.a! Falló la conexión con Localhost NO_Existe
+            ('28000', '[28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user \'user1\'. (18456) (SQLDriverConnect); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "NO_Existe" requested by the login. The login failed. (4060); [28000] [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute (0)')
+Sep 29 00:40:22 inf_  DB_ Conectando con: Localhost NO_Existe2...
+Sep 29 00:40:22 err_ >DB_ERROR en 10.a! Falló la conexión con Localhost NO_Existe2
+            ('28000', '[28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user \'user1\'. (18456) (SQLDriverConnect); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "NO_Existe2" requested by the login. The login failed. (4060); [28000] [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute (0)')
+Sep 29 00:40:22 ok_ >ok_ Se renombró listas/CSVs_list.xlsx a listas/CSVs_list_202309290039_err.xlsx
+Sep 29 00:40:22 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list.xlsx                             
+Archivo de LOGs           ->  logs/qacsv_oop_202309290039.log                   
+Lista CSVs Renombrada     ->  listas/CSVs_list_202309290039_err.xlsx            
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+           20                       11                        9            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+           17                       11                        6            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (6):
+   1 3 _ < SQL_NO_Seg_Horrible.csv >
+   2 8 _ < SQL_NO_Seg_INSERT.csv >
+   3 9 _ < SQL_NO_Table.csv >
+   4 10 _ < client PD x card-operation.csv >
+   5 11 _ < SQL_NO_Seg_DELETE.csv >
+   6 12 _ < SRV_NO_Existe1.csv >
+
+ - Lista de Errores de CSVs (6):
+   1 3 _ < SQL_NO_Seg_Horrible.csv >ERROR en 10.c! Query a la DB NO segura!
+   2 8 _ < SQL_NO_Seg_INSERT.csv >ERROR en 10.c! Query a la DB NO segura!
+   3 9 _ < SQL_NO_Table.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'No_Existe'. (208) (SQLExecDirectW)")
+   4 10 _ < client PD x card-operation.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'Sales.SalesPersonQuotaHistory'. (208) (SQLExecDirectW)")
+   5 11 _ < SQL_NO_Seg_DELETE.csv >ERROR en 10.c! Query a la DB NO segura!
+   6 12 _ < SRV_NO_Existe1.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'Sales.SalesPersonQuotaHistory'. (208) (SQLExecDirectW)")
+
+ - Lista de CSVs Creados (11):
+   1 1 _ < FN 1°parte.csv > - C:/PC_err/CVS_202302/SubDIR_1/FN 1°parte.csv
+   2 2 _ < FN 2°parte.csv > - C:/PC_err/CVS_202302/SubDIR_1/FN 2°parte.csv
+   3 4 _ < FN2-gtías.csv > - C:/PC_err/CVS_202302/SubDIR_2/FN2-gtías.csv
+   4 5 _ < SQL_VACIO_1.csv > - C:/PC_err/CVS_202302/dir_name/SQL_VACIO_1.csv
+   5 6 _ < FileName.csv > - C:/PC_er1/CVS_202302/SubDIR_1/FileName.csv
+   6 7 _ < FileName.csv > - C:/PC_err/CVS_202302/SubDIR_2/FileName.csv
+   7 13 _ < Categ.csv > - C:/PC_err/CVS_202302/dir_name/Categ.csv
+   8 14 _ < ONUI2.csv > - C:/PC_err/CVS_202302/dir_name/ONUI2.csv
+   9 15 _ < FN2-gtías.csv > - C:/PC_er1/CVS_202302/SubDIR_1/FN2-gtías.csv
+   10 16 _ < SQL_VACIO_2.csv > - C:/PC_er1/CVS_202302/SubDIR_1/SQL_VACIO_2.csv
+   11 17 _ < client PD x card-operation.csv > - C:/PC_er1/CVS_202302/SubDIR_1/client PD x card-operation.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (3):
+   1 NO_Existe BikeStores
+   2 Localhost NO_Existe
+   3 Localhost NO_Existe2
+
+ - Lista de Errores de conexiones a DBs (3):
+   1 >DB_ERROR en 10.a! Falló la conexión con NO_Existe BikeStores
+            ('08001', '[08001] [Microsoft][ODBC Driver 17 for SQL Server]Named Pipes Provider: Could not open a connection to SQL Server [53].  (53) (SQLDriverConnect); [08001] [Microsoft][ODBC Driver 17 for SQL Server]Login timeout expired (0); [08001] [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute (0); [08001] [Microsoft][ODBC Driver 17 for SQL Server]A network-related or instance-specific error has occurred while establishing a connection to SQL Server. Server is not found or not accessible. Check if instance name is correct and if SQL Server is configured to allow remote connections. For more information see SQL Server Books Online. (53)')
+   2 >DB_ERROR en 10.a! Falló la conexión con Localhost NO_Existe
+            ('28000', '[28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user \'user1\'. (18456) (SQLDriverConnect); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "NO_Existe" requested by the login. The login failed. (4060); [28000] [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute (0)')
+   3 >DB_ERROR en 10.a! Falló la conexión con Localhost NO_Existe2
+            ('28000', '[28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user \'user1\'. (18456) (SQLDriverConnect); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "NO_Existe2" requested by the login. The login failed. (4060); [28000] [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute (0)')
+
+ - Lista de DBs Conectadas (3):
+   1 1 _ * Localhost AdventureWorks2019 *
+   2 3 _ * Localhost BikeStores *
+   3 4 _ * (local) AdventureWorks2019 *
+
+

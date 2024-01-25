@@ -24,17 +24,24 @@ Escribí dos versiones de qacsv.py. La procedimental (o funcional) y la OOP.
 Definiciones:
 - Archivo de Entrada: listas/CSVs_list.xlsx (camino relativo respecto de qacsv.py)
 - Archivo de Logs: logs/qacsv_AAAAMMDDHHmm.log
+- Format de CSVs_list.xlsx con estas consideraciones:
+	- Se pueden adicionar todas las columnas que se deseen.
+	- Las columnas que lee por nombre el script son: ['Periodo', 'Carpeta', 'Nombre de archivo CSV', 'Server Base', 'Modo de armado', 'Disk', 'path']
+	- No es necessario completar todos los campos de las columnas ['Server Base','Disk', 'path']
+		mientras su valor se igual a uno anterior existiete (ffil de dichas columnas)
+- El valor de 'Period' es leído unicamente de df.loc[0, 'Periodo'].
+- Si existe un CSV con el mismo nombre ](y en la misma carpeta destino), este será sobreescrito.
+- CSVs_list_xlsx es modificado luego de la ejecución del script de la siguiente manera:
+	a. Si no ocurren errores en la ejecución,  CSVs_list.xlsx es movido a listas_hechas/CSV_list_AAAAMMDDHHmm.xlsx
+	b. Si oucrrió algún error se renombra CSVs_list_xlsx a CSVs_list_AAAAMMDDHHmm_err.xlsx en el mismo subdirectorio.
+	(en todos los casos AAAAMMDDHHmm es exactamente el mismo que el del archivo de logs).
+- Se logean:...
 
 
-- Format of Input file as show above, with this considerations:
-	- Can add all the columns they want
-	- Columns readed: ['Periodo', 'Carpeta', 'Nombre de archivo CSV', 'Server Base', 'Modo de armado', 'Disk', 'path']
-	- The order of the columns does not matter, but the name must be that of the example.
-	- ffill ['Server Base','Disk', 'path'] columns.
-- Period value is only readed from df.loc[0, 'Periodo']
-- If exist a csv with the same name rewrite it.
-- Is important to move or rename CSV_list.xlsx cause next run could damage csvs early created.
-	1. If no error occurs CSV_list.xlsx is move to listas_hechas/CSV_list_AAAAMMDDHHmm.xlsx (of course same AAAAMMDDHHmm as Log file)
+	
+
+
+- CSV_list.xlsx is move to listas_hechas/CSV_list_AAAAMMDDHHmm.xlsx (of course same AAAAMMDDHHmm as Log file)
 	2. if any error occurs rename CSV_list.xlsx to CSV_list_AAAAMMDDHHmm_err.xlsx in the same dir
 - Log the list of server-db connections failures, plus errors, plus successful cnxs.
 - For csv of successful connections log a list of errors, list of not generated csvs, and list of successfully created csvs.

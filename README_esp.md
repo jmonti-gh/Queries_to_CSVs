@@ -5,9 +5,8 @@ En la Compañía en la que trabajo, surgió la necesidad de generar varios archi
 (Comma Separated Values), a partir de datos de salida de diferentes queries a distintas
  BDs.
 Estos CSVs deben ser guardados en directorios específicos del disco local C: (en un
-sistema Windows), y sirven como entrada para un proceso de análisis de datos.
-Dado que en la Compañía los usuarios manejan habitualmente archivos .xlsx yo
-propuse que en un planilla de cálculo se generara la lista de todos los .CSV requeridos
+sistema Windows), y sirven como entrada para un proceso de análisis de datos.    
+Dado que en la Compañía los usuarios manejan habitualmente archivos .xlsx se propone que en un planilla de cálculo se generara la lista de todos los .CSV requeridos
 junto con toda la información adicional necesaria para construir y almacenar dichos 
 .CSV de salida.
 Esta planilla de cálculo, cuyo nombre de archivo debe ser CSVs_list.xlsx, oficiará de
@@ -15,8 +14,8 @@ archivo de entrada del script qacsv.py, y debe tener el siquiente formato:
 
 ![image](CSVs_list_xlsx.png)
 
-qacsv.py lo que hace es leer listas/CSVs_list.xlsx y completar los queries y 
-tareas indicadas en cada sus filas.
+qacsv.py lo que hace es leer el archivo listas/CSVs_list.xlsx y completar los queries y 
+tareas indicadas en cada una de sus filas.
 
 Escribí dos versiones de qacsv.py. La procedural (o funcional) qacsv_proc.py y la OOP, qacsv_oop.py.
 La versión OOP es más completa en términos de resumen de resultados.
@@ -32,11 +31,11 @@ Definiciones:
 	- Las columnas que lee por nombre el script son: ['Periodo', 'Carpeta', 'Nombre de archivo CSV', 'Server Base', 'Modo de armado', 'Disk', 'path']
 	- No es necessario completar todos los campos de las columnas ['Server Base','Disk', 'path']
 		mientras su valor se igual a uno anterior existiete (ffil de dichas columnas)
-- El valor de 'Period' es leído unicamente de df.loc[0, 'Periodo'].
-- Si existe un CSV con el mismo nombre ](y en la misma carpeta destino), este será sobreescrito.
-- CSVs_list_xlsx es modificado luego de la ejecución del script de la siguiente manera:
-	a. Si no ocurren errores en la ejecución,  CSVs_list.xlsx es movido a listas_hechas/CSV_list_AAAAMMDDHHmm.xlsx
-	b. Si oucrrió algún error se renombra CSVs_list_xlsx a CSVs_list_AAAAMMDDHHmm_err.xlsx en el mismo subdirectorio.
+- El valor de 'Period' es leído unicamente de la celda A2 <- df.loc[0, 'Periodo'], de lista/CSVs_list.xlsx.
+- Si existe un CSV de salida con el mismo nombre (y en la misma carpeta destino), este será sobreescrito.
+- CSVs_list_xlsx es modificado luego de la ejecución del script de la siguiente manera:    
+  - a. Si no ocurren errores en la ejecución, CSVs_list.xlsx es movido a listas_hechas/CSV_list_AAAAMMDDHHmm.xlsx
+  - b. Si oucrrió algún error se renombra CSVs_list_xlsx a CSVs_list_AAAAMMDDHHmm_err.xlsx en el mismo subdirectorio.
 	(en todos los casos AAAAMMDDHHmm es exactamente el mismo que el del archivo de logs).
 - Se loegea paso a paso cada acción del script. Pero también se registra al final del log:
 	- Lista de conexiones fallidas a Servers-DB con su error, y lista de conexiones exitosas.

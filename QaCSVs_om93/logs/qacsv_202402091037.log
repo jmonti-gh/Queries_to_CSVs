@@ -1,0 +1,95 @@
+Feb 09 10:37:06 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_LGD_tarj_Coef_PD.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202402091037.log
+Feb 09 10:37:07 ok_ > listas/CSVs_LGD_tarj_Coef_PD.xlsx leído correctamente:
+    Periodo   Carpeta Nombre archivo CSV                    Server Base
+0  202312.0  LGD_tarj           jmtcc027  172.16.1.12\MZ12 MPS_Cautivas
+1       NaN       NaN          pago_mst1    172.16.1.12\MZ12 Mastercard
+2       NaN       NaN          pago_mtm1  172.16.1.12\MZ12 MPS_Cautivas
+Feb 09 10:37:07 ok_ > Fecha leída, Periodo: 202312.- Calculados; Fecha de corte: '20231231',
+            Corte del mismo mes del año anterior: '20221231' 
+Feb 09 10:37:07 inf_ Conexiones a DB a establecer:
+ ['172.16.1.12\\MZ12 MPS_Cautivas' '172.16.1.12\\MZ12 Mastercard'
+ '172.31.119.50 Bantotal']
+Feb 09 10:37:07 inf_  DB_ Conectando con: 172.16.1.12\MZ12 MPS_Cautivas...
+Feb 09 10:37:07 ok_ > DB_ Conexión con 172.16.1.12\MZ12 MPS_Cautivas ESTABLECIDA! (1 _ * 172.16.1.12\MZ12 MPS_Cautivas *)
+Feb 09 10:37:07 inf_ Iniciando procesamiento de queries a 172.16.1.12\MZ12 MPS_Cautivas - 2 queries
+Feb 09 10:37:07 inf_ 1 _ < jmtcc027.csv > Iniciando armado archivo 'C:/MTM_PCE_00/CVS_202312/LGD_tarj/jmtcc027.csv'
+ Query:
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from  jmt_cc027D where cod_concepto in (9100,9300,9900,9930,10000,10400) and anio=2016 and mes in (10,11,12) union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from  jmt_cc027D where cod_concepto in (9100,9300,9900,9930,10000,10400) and anio>=2017 and anio<=2022 
+union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from  jmt_cc027D where cod_concepto in (9100,9300,9900,9930,10000,10400) and anio=2023 and mes in (1,2,3,4,5,6,7,8,9,10,11,12)
+order by num_cta_socio,anio,mes 
+Feb 09 10:37:07 err_ 1 _ < jmtcc027.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'jmt_cc027D'. (208) (SQLExecDirectW)")
+Feb 09 10:37:07 inf_ 2 _ < pago_mtm1.csv > Iniciando armado archivo 'C:/MTM_PCE_00/CVS_202312/LGD_tarj/pago_mtm1.csv'
+ Query:
+select cta_bto,tip_tar,nro_cta,convert(datetime,fec_com,121) as fec_com,nro_cup,ctd_cuo,cod_mov,convert(float,sum(imp_cuo)) as imp_cuo from mps_cautivas..movtrjpro_2016_10
+where fec_com between '20180101' and '20231231' and cod_mov in (1,98) and tip_tar='PS' and nro_cta<=57845
+group by cta_bto,tip_tar,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov
+order by nro_cta,fec_com 
+Feb 09 10:37:42 ok_ 2 _ < pago_mtm1.csv > Creado exitosamente 'C:/MTM_PCE_00/CVS_202312/LGD_tarj/pago_mtm1.csv' 
+Feb 09 10:37:42 inf_  DB_ Conectando con: 172.16.1.12\MZ12 Mastercard...
+Feb 09 10:37:42 ok_ > DB_ Conexión con 172.16.1.12\MZ12 Mastercard ESTABLECIDA! (2 _ * 172.16.1.12\MZ12 Mastercard *)
+Feb 09 10:37:42 inf_ Iniciando procesamiento de queries a 172.16.1.12\MZ12 Mastercard - 1 queries
+Feb 09 10:37:42 inf_ 3 _ < pago_mst1.csv > Iniciando armado archivo 'C:/MTM_PCE_00/CVS_202312/LGD_tarj/pago_mst1.csv'
+ Query:
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio=2016 and mes in (10,11,12) and cod_concepto in (16100) and nombre_archivo <>'temsmasg11.201911' union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio=2016 and mes in (10,11,12) and cod_concepto in (3100) and nombre_archivo <>'temsmasg11.201911' and importe_pesos<=0 union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio>=2017 and anio<=2022 and cod_concepto in (16100) and nombre_archivo <>'temsmasg11.201911' union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio>=2017 and anio<=2022 and cod_concepto in (3100) and nombre_archivo <>'temsmasg11.201911' and importe_pesos<=0 union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio=2023 and mes in (1,2,3,4,5,6,7,8,9,10,11,12) and cod_concepto in (16100) and nombre_archivo <>'temsmasg11.201911' union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio=2023 and mes in (1,2,3,4,5,6,7,8,9,10,11,12) and cod_concepto in (3100) and nombre_archivo <>'temsmasg11.201911' and importe_pesos<=0 
+Feb 09 10:38:00 ok_ 3 _ < pago_mst1.csv > Creado exitosamente 'C:/MTM_PCE_00/CVS_202312/LGD_tarj/pago_mst1.csv' 
+Feb 09 10:38:00 inf_  DB_ Conectando con: 172.31.119.50 Bantotal...
+Feb 09 10:38:00 ok_ > DB_ Conexión con 172.31.119.50 Bantotal ESTABLECIDA! (3 _ * 172.31.119.50 Bantotal *)
+Feb 09 10:38:00 inf_ Iniciando procesamiento de queries a 172.31.119.50 Bantotal - 1 queries
+Feb 09 10:38:00 inf_ 4 _ < Operaciones con default.csv > Iniciando armado archivo 'C:/MTM_PCE_00/CVS_202312/Coef_PD/Operaciones con default.csv'
+ Query:
+select ri108emp as pgcod,ri108mod as MOD,ri108cta as CTA,ri108oper as OPER,RI108Sbop as SUBOP,convert(datetime,min(ri108fec),121) as FRI108_fec 
+from fri108 where  ri108plazo>90 and ri108mod in (101,102,103,104) and ri108fec<='20231231'
+group by ri108emp,ri108mod,ri108cta,ri108oper,RI108Sbop 
+Feb 09 10:38:00 err_ 4 _ < Operaciones con default.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42000', "[42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The SELECT permission was denied on the object 'FRI108', database 'Bantotal', schema 'dbo'. (229) (SQLExecDirectW)")
+Feb 09 10:38:00 ok_ >ok_ Se renombró listas/CSVs_LGD_tarj_Coef_PD.xlsx a listas/CSVs_LGD_tarj_Coef_PD_202402091037_err.xlsx
+Feb 09 10:38:00 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_LGD_tarj_Coef_PD.xlsx                 
+Archivo de LOGs           ->  logs/qacsv_202402091037.log                       
+Lista CSVs Renombrada     ->  listas/CSVs_LGD_tarj_Coef_PD_202402091037_err.xlsx
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+            4                        2                        2            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+            4                        2                        2            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (2):
+   1 1 _ < jmtcc027.csv >
+   2 4 _ < Operaciones con default.csv >
+
+ - Lista de Errores de CSVs (2):
+   1 1 _ < jmtcc027.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid object name 'jmt_cc027D'. (208) (SQLExecDirectW)")
+   2 4 _ < Operaciones con default.csv >ERROR en 10.d! Falló  Query a la DB
+                ('42000', "[42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The SELECT permission was denied on the object 'FRI108', database 'Bantotal', schema 'dbo'. (229) (SQLExecDirectW)")
+
+ - Lista de CSVs Creados (2):
+   1 2 _ < pago_mtm1.csv > - C:/MTM_PCE_00/CVS_202312/LGD_tarj/pago_mtm1.csv
+   2 3 _ < pago_mst1.csv > - C:/MTM_PCE_00/CVS_202312/LGD_tarj/pago_mst1.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (0):
+
+ - Lista de Errores de conexiones a DBs (0):
+
+ - Lista de DBs Conectadas (3):
+   1 1 _ * 172.16.1.12\MZ12 MPS_Cautivas *
+   2 2 _ * 172.16.1.12\MZ12 Mastercard *
+   3 3 _ * 172.31.119.50 Bantotal *
+
+

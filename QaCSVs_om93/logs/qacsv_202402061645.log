@@ -1,0 +1,6 @@
+Feb 06 16:45:16 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CVSs_list_fsd010.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202402061645.log
+Feb 06 16:45:16 err_ >ERROR en 6.1.! Falló la lectura de listas/CVSs_list_fsd010.xlsx
+        [Errno 2] No such file or directory: 'listas/CVSs_list_fsd010.xlsx'
+Feb 06 16:45:16 err_ ABORT Execution: llamado a la función exit_prg()

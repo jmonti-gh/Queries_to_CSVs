@@ -1,0 +1,61 @@
+Feb 05 17:38:45 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list_1.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202402051738.log
+Feb 05 17:38:45 ok_ > listas/CSVs_list_1.xlsx leído correctamente:
+    Periodo Carpeta Nombre archivo CSV             Server Base
+0  202309.0     PDS     FSD002 1°parte  172.31.119.50 Bantotal
+1       NaN     NaN     FSD002 2°parte                     NaN
+2       NaN     NaN             FSR008                     NaN
+Feb 05 17:38:45 ok_ > Fecha leída, Periodo: 202309.- Calculados; Fecha de corte: 20230930,
+            Corte del mismo mes del año anterior: 20220930 
+Feb 05 17:38:45 inf_ Conexiones a DB a establecer:
+ ['172.31.119.50 Bantotal']
+Feb 05 17:38:45 inf_  DB_ Conectando con: 172.31.119.50 Bantotal...
+Feb 05 17:38:45 ok_ > DB_ Conexión con 172.31.119.50 Bantotal ESTABLECIDA! (1 _ * 172.31.119.50 Bantotal *)
+Feb 05 17:38:45 inf_ Iniciando procesamiento de queries a 172.31.119.50 Bantotal - 3 queries
+Feb 05 17:38:45 inf_ 1 _ < FSD002 1°parte.csv > Iniciando armado archivo 'C:/MTM_PCE_1/CVS_202309/PDS/FSD002 1°parte.csv'
+ Query:
+select * from fsd002 where pfndoc<'23667666' order by pfndoc  
+Feb 05 17:38:50 ok_ 1 _ < FSD002 1°parte.csv > Creado exitosamente 'C:/MTM_PCE_1/CVS_202309/PDS/FSD002 1°parte.csv' 
+Feb 05 17:38:50 inf_ 2 _ < FSD002 2°parte.csv > Iniciando armado archivo 'C:/MTM_PCE_1/CVS_202309/PDS/FSD002 2°parte.csv'
+ Query:
+select * from fsd002 where pfndoc>='23667666' order by pfndoc  
+Feb 05 17:38:59 ok_ 2 _ < FSD002 2°parte.csv > Creado exitosamente 'C:/MTM_PCE_1/CVS_202309/PDS/FSD002 2°parte.csv' 
+Feb 05 17:39:00 inf_ 3 _ < FSR008.csv > Iniciando armado archivo 'C:/MTM_PCE_1/CVS_202309/PDS/FSR008.csv'
+ Query:
+select * from fsr008 where pgcod=1 
+Feb 05 17:39:03 ok_ 3 _ < FSR008.csv > Creado exitosamente 'C:/MTM_PCE_1/CVS_202309/PDS/FSR008.csv' 
+Feb 05 17:39:03 ok_ >ok_ Se movió listas/CSVs_list_1.xlsx a listas_hechas/CSVs_list_1_202402051738.xlsx
+Feb 05 17:39:03 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list_1.xlsx                           
+Archivo de LOGs           ->  logs/qacsv_202402051738.log                       
+Lista CSVs Renombrada     ->  listas_hechas/CSVs_list_1_202402051738.xlsx       
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+            3                        3                        0            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+            3                        3                        0            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (0):
+
+ - Lista de Errores de CSVs (0):
+
+ - Lista de CSVs Creados (3):
+   1 1 _ < FSD002 1°parte.csv > - C:/MTM_PCE_1/CVS_202309/PDS/FSD002 1°parte.csv
+   2 2 _ < FSD002 2°parte.csv > - C:/MTM_PCE_1/CVS_202309/PDS/FSD002 2°parte.csv
+   3 3 _ < FSR008.csv > - C:/MTM_PCE_1/CVS_202309/PDS/FSR008.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (0):
+
+ - Lista de Errores de conexiones a DBs (0):
+
+ - Lista de DBs Conectadas (1):
+   1 1 _ * 172.31.119.50 Bantotal *
+
+

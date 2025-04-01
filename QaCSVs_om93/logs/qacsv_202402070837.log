@@ -1,0 +1,46 @@
+Feb 07 08:37:56 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list_fsd010.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202402070837.log
+Feb 07 08:37:57 ok_ > listas/CSVs_list_fsd010.xlsx leído correctamente:
+   Periodo Carpeta Nombre archivo CSV             Server Base
+0   202309     PDS             FSD010  172.31.119.50 Bantotal
+Feb 07 08:37:57 ok_ > Fecha leída, Periodo: 202309.- Calculados; Fecha de corte: '20230930',
+            Corte del mismo mes del año anterior: '20220930' 
+Feb 07 08:37:57 inf_ Conexiones a DB a establecer:
+ ['172.31.119.50 Bantotal']
+Feb 07 08:37:57 inf_  DB_ Conectando con: 172.31.119.50 Bantotal...
+Feb 07 08:37:57 err_ >DB_ERROR en 10.a! Falló la conexión con 172.31.119.50 Bantotal
+            ('28000', '[28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user \'usr_motor\'. (18456) (SQLDriverConnect); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "Bantotal" requested by the login. The login failed. (4060); [28000] [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute (0)')
+Feb 07 08:37:57 ok_ >ok_ Se renombró listas/CSVs_list_fsd010.xlsx a listas/CSVs_list_fsd010_202402070837_err.xlsx
+Feb 07 08:37:57 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list_fsd010.xlsx                      
+Archivo de LOGs           ->  logs/qacsv_202402070837.log                       
+Lista CSVs Renombrada     ->  listas/CSVs_list_fsd010_202402070837_err.xlsx     
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+            1                        0                        1            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+            0                        0                        0            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (0):
+
+ - Lista de Errores de CSVs (0):
+
+ - Lista de CSVs Creados (0):
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (1):
+   1 172.31.119.50 Bantotal
+
+ - Lista de Errores de conexiones a DBs (1):
+   1 >DB_ERROR en 10.a! Falló la conexión con 172.31.119.50 Bantotal
+            ('28000', '[28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user \'usr_motor\'. (18456) (SQLDriverConnect); [28000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "Bantotal" requested by the login. The login failed. (4060); [28000] [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute (0)')
+
+ - Lista de DBs Conectadas (0):
+
+

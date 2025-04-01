@@ -1,0 +1,160 @@
+Feb 07 14:08:46 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list_PDS.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202402071408.log
+Feb 07 14:08:46 ok_ > listas/CSVs_list_PDS.xlsx leído correctamente:
+    Periodo Carpeta Nombre archivo CSV             Server Base
+0  202309.0     PDS     FSD002 1°parte  172.31.119.50 Bantotal
+1       NaN     NaN     FSD002 2°parte                     NaN
+2       NaN     NaN             FSD010                     NaN
+Feb 07 14:08:46 ok_ > Fecha leída, Periodo: 202309.- Calculados; Fecha de corte: '20230930',
+            Corte del mismo mes del año anterior: '20220930' 
+Feb 07 14:08:46 inf_ Conexiones a DB a establecer:
+ ['172.31.119.50 Bantotal']
+Feb 07 14:08:46 inf_  DB_ Conectando con: 172.31.119.50 Bantotal...
+Feb 07 14:08:47 ok_ > DB_ Conexión con 172.31.119.50 Bantotal ESTABLECIDA! (1 _ * 172.31.119.50 Bantotal *)
+Feb 07 14:08:47 inf_ Iniciando procesamiento de queries a 172.31.119.50 Bantotal - 9 queries
+Feb 07 14:08:47 inf_ 1 _ < FSD002 1°parte.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSD002 1°parte.csv'
+ Query:
+select * from fsd002 where pfndoc<'23667666' order by pfndoc  
+Feb 07 14:08:59 ok_ 1 _ < FSD002 1°parte.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSD002 1°parte.csv' 
+Feb 07 14:08:59 inf_ 2 _ < FSD002 2°parte.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSD002 2°parte.csv'
+ Query:
+select * from fsd002 where pfndoc>='23667666' order by pfndoc  
+Feb 07 14:09:19 ok_ 2 _ < FSD002 2°parte.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSD002 2°parte.csv' 
+Feb 07 14:09:19 inf_ 3 _ < FSD010.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSD010.csv'
+ Query:
+select Pgcod,Aomod,Aosuc,Aomda,Aopap,Aocta,Aooper,Aosbop,Aotope,convert(datetime,Aofval,121) as Aofval,convert(datetime,Aofvto,121) as Aofvto,convert(float,Aopzo) as Aopzo,Aottas,convert(float,Aotasa) as Aotasa,Aotmor,convert(float,Aottac) as Aottac,Aotasc,Aotdia,Aotvto,Aotano,Aotint,Aodrev,convert(float,Aoimp) as Aoimp,Aopre,Aopre1,Aotcbi,convert(float,Aotcbi1) as Aotcbi1,Aoarb,Aoarb1,Aomd,Aomd1,Aonume,Aofnum,Aoafiv,Aocbcu,Aostat,Aoavis,Aoplus,Aoeven,convert(datetime,Aofe99,121) as Aofe99,Aocltcod,Aoperiod from fsd010 where aomod in (101,102,103,104) and aopzo>0 and aofval <='20230930' union
+select Pgcod,Aomod,Aosuc,Aomda,Aopap,Aocta,Aooper,Aosbop,Aotope,convert(datetime,Aofval,121) as Aofval,convert(datetime,Aofvto,121) as Aofvto,convert(float,Aopzo) as Aopzo,Aottas,convert(float,Aotasa) as Aotasa,Aotmor,convert(float,Aottac) as Aottac,Aotasc,Aotdia,Aotvto,Aotano,Aotint,Aodrev,convert(float,Aoimp) as Aoimp,Aopre,Aopre1,Aotcbi,convert(float,Aotcbi1) as Aotcbi1,Aoarb,Aoarb1,Aomd,Aomd1,Aonume,Aofnum,Aoafiv,Aocbcu,Aostat,Aoavis,Aoplus,Aoeven,convert(datetime,Aofe99,121) as Aofe99,Aocltcod,Aoperiod from fsd010 where aomod in (71) and aofval <='20230930' 
+Feb 07 14:09:39 ok_ 3 _ < FSD010.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSD010.csv' 
+Feb 07 14:09:39 inf_ 4 _ < FSD601.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSD601.csv'
+ Query:
+select ppmod,ppcta,ppoper,ppsbop,convert(float,count(*)) as Cuotas,convert(datetime,min(ppfvto),121) as ppfvto from fsd601 where pgcod=1 and ppmod in (101,102,103,104) and d601co='S' and d601fc<='20230930'
+group by ppmod,ppcta,ppoper,ppsbop 
+Feb 07 14:09:52 ok_ 4 _ < FSD601.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSD601.csv' 
+Feb 07 14:09:52 inf_ 5 _ < FSR011 refi.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSR011 refi.csv'
+ Query:
+select * from fsr011 where relcod in (500,650) and r011fc<='20230930' 
+Feb 07 14:09:52 ok_ 5 _ < FSR011 refi.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSR011 refi.csv' 
+Feb 07 14:09:52 inf_ 6 _ < FSR008.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSR008.csv'
+ Query:
+select * from fsr008 where pgcod=1 
+Feb 07 14:09:56 ok_ 6 _ < FSR008.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/FSR008.csv' 
+Feb 07 14:09:56 inf_ 7 _ < Ingresos originales.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/Ingresos originales.csv'
+ Query:
+select jmtYA10Mod,jmtYA10Suc,jmtYA10Cta,jmtYA10Ope,jmtYA10Top,convert(datetime,jmtYA10FcA,121) as jmtYA10FcA,convert(float,a.WFAttSVal)'CLINGBRUTO' ,convert(float,b.WFAttSVal)'CLINGNETO'  from jmtya10 
+left join wfattsvalues a (nolock) on jmtYA10N1 = a.wfinsprcid and a.WFAttSId = 'CLINGBRUTO'                                        
+left join wfattsvalues b (nolock) on jmtYA10N1 = b.wfinsprcid and b.WFAttSId = 'CLINGNETO'        
+where jmtYA10Mod in (101,102,103,104,37,71) and jmtYA10N1 <> 0 and jmtya10fca<>'1753-01-01' and jmtya10fca<='20230930' order by jmtya10fca desc 
+Feb 07 14:10:17 ok_ 7 _ < Ingresos originales.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/Ingresos originales.csv' 
+Feb 07 14:10:17 inf_ 8 _ < JMTI00.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/JMTI00.csv'
+ Query:
+select * from jmti00 where jmti00adm='MC' 
+Feb 07 14:10:22 ok_ 8 _ < JMTI00.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/JMTI00.csv' 
+Feb 07 14:10:22 inf_ 9 _ < JMTX041.csv > Iniciando armado archivo 'C:/MTM_PCE_PSD/CVS_202309/PDS/JMTX041.csv'
+ Query:
+select 
+convert(datetime,JMTX041Fec,121)   as Fecha,
+JMTX041Tdoc  as TipoDoc,
+JMTX041Pdoc  as PaisDoc,
+JMTX041Ndoc  as NroDoc,
+(case JMTX041Cta when 999999999 then 0 else JMTX041Cta end) as NroCuenta,
+JMTX041Ins   as NroInstancia,
+JMTX041Ape1  as Apellido1,
+JMTX041Ape2  as Apellido2,
+JMTX041Nom1  as Nombre1,
+JMTX041Nom2  as Nombre2,
+JMTX041Rsoc  as RazonSocial,
+convert(datetime,JMTX041Fecn,121)  as FecNac,
+JMTX041Sex   as Sexo,
+JMTX041Emp   as EsEmpleadoMTM,
+isnull((select Ecnom from  fst009 (nolock) where Eccod=JMTX041Estc ),'')  as EstadoCivil,
+JMTX041Ingp  as IngresoPareja,
+(case JMTX041Uvc 
+  when 1 then 'Solo' 
+  when 2 then 'Padres'  
+  when 3 then 'Esposa/Hijos' 
+  when 4 then 'Pareja/Hijos'  
+  when 5 then 'Comparte con 3eros' 
+  when 6 then 'Hijos' 
+  when 7 then 'Otros' 
+  else '' end) as UstedViveCon,
+JMTX041Use as EsUnicoSosten,
+(case JMTX041Duv
+  when 1 then 'Propietario' 
+  when 2 then 'Alquila' 
+  when 3 then 'Otros'   
+  else ''
+  end) as DondeUstedViveEs,
+JMTX041Ial as ImporteAlquiler,
+(case JMTX041Cdor when 99 then 'mas de 4' when 999 then 'No desea contestar' else (cast(JMTX041Cdor as Varchar(20))) end)as CantDormitorios,
+(case JMTX041Cban when 99 then 'mas de 6' when 999 then 'No desea contestar' else (cast(JMTX041Cban as Varchar(20))) end)as CantBanios,
+(case JMTX041Canh when 99 then 'mas de 6' when 999 then 'No desea contestar'else (cast(JMTX041Canh as Varchar(20)))end)   as CantHijos,
+(case JMTX041Hes when 99 then 'mas de 6' when 999 then 'No desea contestar'else (cast(JMTX041Hes as Varchar(20)))end) as CantHijosEscolarizados,
+(case JMTX041Tesc when 1 then 'Pública' when 2 then 'Privada' when 3 then 'Mixto' when 999 then 'No desea contestar' else '' end) as TipoEscuela,    
+(case JMTX041Hnv when 99 then 'mas de 6' when 999 then 'No desea contestar'else (cast(JMTX041Hnv as Varchar(20)))end) as CantHijosNoVivenConsUsted,
+(case JMTX041Pveh when 'A' then 'Auto' when 'M' then 'Moto' When 'N' then 'N' else JMTX041Pveh end) as PoseeVehiculo,
+JMTX041Int   as PoseeInternet,
+JMTX041Ptv   as PoseeTvCable,
+JMTX041Psv   as PoseeSegVivienda,
+JMTX041Psa   as PoseeSegAuto,
+JMTX041Psi   as PoseeSegVida,
+JMTX041Cse   as PoseeCobServicio,
+ISNULL((SELECT  Tpdesc  FROM FST098 (nolock)
+       Where PgCod=1
+       AND Tpcod  = 2184
+       AND Tpcorr <100
+       AND  Tpcorr <> 7
+       AND Tpcorr <> 8
+    AND Tpcorr = JMTX041Ttra),'')
+as TipoTrabajo,
+convert(datetime,JMTX041Fei,121) as FecIngresoLaboral,
+JMTX041Dcob as DondeCobra,
+JMTX041Ems as TieneEmbargoSueldo,
+JMTX041Empr as NombreEmpresa,     
+(case JMTX041Usr when 'NSBT' then 'WEB' else JMTX041Usr end) as Usuario, 
+isnull((case JMTX041Usr when 'NSBT' then 90 else (select Sucurs from fst046 f46 (nolock) 
+inner join fst001 f1 (nolock) on f46.Pgcod= f1.Pgcod and f46.Ubsuc=f1.Sucurs
+where ubuser = JMTX041Usr) end),0 ) as Sucursal
+from jmtx041 (nolock)   where JMTX041Fec<='20230930'
+order by Fecha, NroDoc 
+Feb 07 14:11:32 ok_ 9 _ < JMTX041.csv > Creado exitosamente 'C:/MTM_PCE_PSD/CVS_202309/PDS/JMTX041.csv' 
+Feb 07 14:11:32 ok_ >ok_ Se movió listas/CSVs_list_PDS.xlsx a listas_hechas/CSVs_list_PDS_202402071408.xlsx
+Feb 07 14:11:32 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list_PDS.xlsx                         
+Archivo de LOGs           ->  logs/qacsv_202402071408.log                       
+Lista CSVs Renombrada     ->  listas_hechas/CSVs_list_PDS_202402071408.xlsx     
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+            9                        9                        0            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+            9                        9                        0            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (0):
+
+ - Lista de Errores de CSVs (0):
+
+ - Lista de CSVs Creados (9):
+   1 1 _ < FSD002 1°parte.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/FSD002 1°parte.csv
+   2 2 _ < FSD002 2°parte.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/FSD002 2°parte.csv
+   3 3 _ < FSD010.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/FSD010.csv
+   4 4 _ < FSD601.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/FSD601.csv
+   5 5 _ < FSR011 refi.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/FSR011 refi.csv
+   6 6 _ < FSR008.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/FSR008.csv
+   7 7 _ < Ingresos originales.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/Ingresos originales.csv
+   8 8 _ < JMTI00.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/JMTI00.csv
+   9 9 _ < JMTX041.csv > - C:/MTM_PCE_PSD/CVS_202309/PDS/JMTX041.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (0):
+
+ - Lista de Errores de conexiones a DBs (0):
+
+ - Lista de DBs Conectadas (1):
+   1 1 _ * 172.31.119.50 Bantotal *
+
+

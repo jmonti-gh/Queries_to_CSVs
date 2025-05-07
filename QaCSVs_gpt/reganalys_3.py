@@ -34,18 +34,18 @@ conn_str = (
 if len(sys.argv) < 2:       # Show structure of cursor.description and exit
     headers = ["Index", "Element", "Meaning"]
     table_data = [
-        [0, "`name`", "Column name (string)"],
-        [1, "`type_code`", "Data type code (int, str, etc.) depending on driver"],
-        [2, "`display_size`", "Max display width (usually None in pyodbc)"],
-        [3, "`internal_size`", "Internal size in bytes (e.g., 4 for INT)"],
-        [4, "`precision`", "Total digits for numeric fields"],
-        [5, "`scale`", "Digits to the right of decimal point"],
-        [6, "`null_ok`", "True if the column accepts NULLs"]
+        [0, "`name`", "Nombre de la columna (string)"],
+        [1, "`type_code`", "Tipo de dato en el lenguaje (depende del driver, ej. int, str, etc.)"],
+        [2, "`display_size`", "Tamaño máximo que puede ocupar al mostrar (normalmente `None` en pyodbc)"],
+        [3, "`internal_size`", "Tamaño interno en bytes (por ejemplo, 4 para un `INT`, 8 para un `FLOAT`)"],
+        [4, "`precision`", "Precisión para números decimales (número total de dígitos)"],
+        [5, "`scale`", "Escala decimal (número de dígitos a la derecha del punto decimal)"],
+        [6, "`null_ok`", "Booleano que indica si la columna acepta `NULL`"]
     ]
 
-    print("\n📘 Structure of cursor.description:\n")
+    print("\n📘  Structure of cursor.description:\n")
     print(f"{headers[0]:<8} {headers[1]:<20} {headers[2]}")
-    print("-" * 70)
+    print("--" * 56)
     for row in table_data:
         print(f"{str(row[0]):<8} {row[1]:<20} {row[2]}")
 
@@ -55,13 +55,14 @@ if len(sys.argv) < 2:       # Show structure of cursor.description and exit
         writer.writerow(headers)
         writer.writerows(table_data)
 
-    print(f"\n✔️ Structure saved to '{csv_desc}'")
+    print(f"\n✔️  Structure saved to '{csv_desc}'")
     input('\n --> Press ENTER to close...')
     sys.exit(0)
 
 else:                       # Read record_number and SQL Srv query
     try:
         record_number = int(sys.argv[1])
+        print(f'{record_number = }')
         if record_number <= 0:
             raise ValueError
     except ValueError:
@@ -70,11 +71,11 @@ else:                       # Read record_number and SQL Srv query
 
     if not os.path.exists(query_file):                          # Load query from file
         print(f"❌ Query file '{query_file}' not found.")
-    sys.exit(1)
+        sys.exit(1)
 
     with open(query_file, 'r', encoding='utf-8') as f:
         sql_query = f.read().strip()
-
+    
     if not sql_query:
         print("❌ The query in 'reganalys.qry' is empty.")
         sys.exit(1)

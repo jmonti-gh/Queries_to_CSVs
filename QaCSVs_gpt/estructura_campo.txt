@@ -1,0 +1,12 @@
+ * Esctructura del campo + valor del dato del campo:
+
+Index    Element              Meaning
+----------------------------------------------------------------------------------------------------------------
+0        Field_name           Nombre de la columna (string)
+1        type_code            Tipo de dato (depende del driver, ej. int, str, etc.)
+2        display_size         Tamaño máximo que puede ocupar al mostrar (normalmente `None` en pyodbc)
+3        internal_size        Tamaño interno en bytes (por ejemplo, 4 para un `INT`, 8 para un `FLOAT`)
+4        precision            Precisión para números decimales (número total de dígitos)
+5        scale                Escala decimal (número de dígitos a la derecha del punto decimal)
+6        null_ok              Booleano que indica si la columna acepta `NULL`
+7        Value                Valor (data) del campo para el registro  seleccionado

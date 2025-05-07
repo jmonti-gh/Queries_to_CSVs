@@ -1,12 +1,34 @@
-''' 
-## reganalys.py
+"""
+reganalys_1_3.py
 
-Depuración o análisis detallado de un solo registro
-de una consulta (query) SQL Server
+Depuración o análisis detallado de un solo registro de una consulta (query) SQL Server.
+Detalla todos los campos de un registro. Muestra en pantalla el resultado y escribe .txt.; .csv; .md; .html
 
-Detalla todos los campos de un registro
-Muestra en pantalla el resultado y escribe .txt. y .csv
-'''
+Author:
+    Jorge Monti
+
+Date:
+    2025-05-07
+
+Version:
+    1.3
+
+Use:
+    $ python reganalys_1_3.py
+
+Required libraries:
+    - os; ...
+
+Script do:
+    - The ´record number** is taken from the **first command-line argument**.
+    - El **query SQL** se lee desde un archivo llamado `reganalys.qry` (en el mismo directorio)
+    - ❌ Si no hay argumentos: muestra la tabla descriptiva de `cursor.description` y la guarda como `.csv`
+    - It will print the selected record's metadata and values in a formatted table.
+    - It will export the output to all`.txt` ,`.csv`, .md, .html files.
+
+Query file:
+    - "reganalys.qry"
+"""
 
 ## Libraries
 import pyodbc
@@ -34,18 +56,18 @@ conn_str = (
 if len(sys.argv) < 2:       # Show structure of cursor.description and exit
     headers = ["Index", "Element", "Meaning"]
     table_data = [
-        [0, "`name`", "Column name (string)"],
-        [1, "`type_code`", "Data type code (int, str, etc.) depending on driver"],
-        [2, "`display_size`", "Max display width (usually None in pyodbc)"],
-        [3, "`internal_size`", "Internal size in bytes (e.g., 4 for INT)"],
-        [4, "`precision`", "Total digits for numeric fields"],
-        [5, "`scale`", "Digits to the right of decimal point"],
-        [6, "`null_ok`", "True if the column accepts NULLs"]
+        [0, "`name`", "Nombre de la columna (string)"],
+        [1, "`type_code`", "Tipo de dato en el lenguaje (depende del driver, ej. int, str, etc.)"],
+        [2, "`display_size`", "Tamaño máximo que puede ocupar al mostrar (normalmente `None` en pyodbc)"],
+        [3, "`internal_size`", "Tamaño interno en bytes (por ejemplo, 4 para un `INT`, 8 para un `FLOAT`)"],
+        [4, "`precision`", "Precisión para números decimales (número total de dígitos)"],
+        [5, "`scale`", "Escala decimal (número de dígitos a la derecha del punto decimal)"],
+        [6, "`null_ok`", "Booleano que indica si la columna acepta `NULL`"]
     ]
 
-    print("\n📘 Structure of cursor.description:\n")
+    print("\n📘  Structure of cursor.description:\n")
     print(f"{headers[0]:<8} {headers[1]:<20} {headers[2]}")
-    print("-" * 70)
+    print("--" * 56)
     for row in table_data:
         print(f"{str(row[0]):<8} {row[1]:<20} {row[2]}")
 
@@ -55,13 +77,14 @@ if len(sys.argv) < 2:       # Show structure of cursor.description and exit
         writer.writerow(headers)
         writer.writerows(table_data)
 
-    print(f"\n✔️ Structure saved to '{csv_desc}'")
+    print(f"\n✔️  Structure saved to '{csv_desc}'")
     input('\n --> Press ENTER to close...')
     sys.exit(0)
 
 else:                       # Read record_number and SQL Srv query
     try:
         record_number = int(sys.argv[1])
+        print(f'{record_number = }')
         if record_number <= 0:
             raise ValueError
     except ValueError:
@@ -70,11 +93,11 @@ else:                       # Read record_number and SQL Srv query
 
     if not os.path.exists(query_file):                          # Load query from file
         print(f"❌ Query file '{query_file}' not found.")
-    sys.exit(1)
+        sys.exit(1)
 
     with open(query_file, 'r', encoding='utf-8') as f:
         sql_query = f.read().strip()
-
+    
     if not sql_query:
         print("❌ The query in 'reganalys.qry' is empty.")
         sys.exit(1)
@@ -90,10 +113,10 @@ md_file = f"{base_filename}.md"
 
 ## Main process
 with pyodbc.connect(conn_str) as conn:
-    cursor = conn.cursor()
-    cursor.execute(sql_query)
+    cursor = conn.cursor()          # Make DNB connection
+    cursor.execute(sql_query)       # Execute the query
 
-    rows = cursor.fetchall()
+    rows = cursor.fetchall()        # Read all registers of the query's output
     if not cursor.description:
         print("❌ Query returned no columns.")
         sys.exit(1)
@@ -102,10 +125,10 @@ with pyodbc.connect(conn_str) as conn:
         print(f"❌ Only {len(rows)} records found. Record #{record_number} is out of range.")
         sys.exit(1)
 
-    selected_row = rows[record_number - 1]
-    column_info = cursor.description
+    selected_row = rows[record_number - 1]      # 0 register indexing
+    column_info = cursor.description            # Fields metadata
 
-    headers = [
+    headers = [                                 # Headers of the output table info
         "Field_name", "type_code", "display_size", "internal_size",
         "precision", "scale", "null_ok", "Value"
     ]
@@ -113,16 +136,16 @@ with pyodbc.connect(conn_str) as conn:
     table_rows = []
     for i, col in enumerate(column_info):
         row_data = [
-            col[0],
+            col[0],             # Field_name
             str(col[1]),
             col[2],
             col[3],
             col[4],
-            col[5],
+            col[5],             # Scale
             col[6],
-            selected_row[i]
+            selected_row[i]     # Value [dato del campo (col) del registro (fila) seleccionada]
         ]
-        table_rows.append(row_data)
+        table_rows.append(row_data)     # Append new line of output info
 
     # Console output
     print(f"\n📄 Full information for record #{record_number}:\n")

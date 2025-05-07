@@ -1,0 +1,8 @@
+Index,Element,Meaning
+0,`name`,Column name (string)
+1,`type_code`,"Data type code (int, str, etc.) depending on driver"
+2,`display_size`,Max display width (usually None in pyodbc)
+3,`internal_size`,"Internal size in bytes (e.g., 4 for INT)"
+4,`precision`,Total digits for numeric fields
+5,`scale`,Digits to the right of decimal point
+6,`null_ok`,True if the column accepts NULLs

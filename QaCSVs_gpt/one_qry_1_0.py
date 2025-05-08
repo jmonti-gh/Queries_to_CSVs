@@ -1,9 +1,10 @@
 """
-reganalys_1_4.py
+one_qry_1_0.py
 
-Depuración o análisis detallado de un solo registro de una consulta (query) SQL Server.
-Detalla las características (metadata) de todos los campos de un registro.
-Muestra en pantalla el resultado y escribe un .txt con la misma info
+Ejecuta el query y lo guarda en un .csv; y + todo lo de reganalys.py:
+    Depuración o análisis detallado de un solo registro de una consulta (query) SQL Server.
+    Detalla las características (metadata) de todos los campos de un registro.
+    Muestra en pantalla el resultado y escribe un .txt con la misma info
 
 Author:
     Jorge Monti
@@ -15,10 +16,10 @@ Version:
     1.4
 
 Use:
-    $ python reganalys_1_4.py
+    $ python one_qry_1_0.py
 
 Required libraries:
-    - os; ...
+    - pyodbc, sys, ...
 
 Arguments:
     - 
@@ -38,7 +39,7 @@ Script do:
     - It will export the output to a `.txt` file
 
 Query file:
-    - "reganalys_qry.txt"
+    - "oneq_qry.txt"
 """
 
 ## Libraries
@@ -47,13 +48,14 @@ import sys
 from datetime import datetime
 import os
 import re
+import csv
 
 
 
 ### fixed variables - constants
 err_sign = ' > ERROR!:'
 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')        # Timestamp for filenames
-query_file = "reganalys_qry.txt"                            # Query file
+query_file = "oneq_qry.txt"                                 # Query file
 
 server = '172.31.119.50'                                    # Connection parameters
 database = 'Bantotal'
@@ -73,6 +75,14 @@ headers = [
 
 
 ### Functions
+
+def usage_msg(prg):
+    prg_name = os.path.basename(prg)
+    result = f"\nUso: {prg_name} <nomnbre del archivo CSV> <número de registro>"
+    result += f"\n   - <nombre del archivo CSV>: SIN espacios y SIN extensión .csv"
+    result += f"\n   - <número del registro>: resgistro que se va a anilizar en detalle (entero > 1)"
+    return result
+
 
 def is_valid_win_filename(nombre):
     # Lista de nombres reservados en Windows (sin extensión)
@@ -94,12 +104,16 @@ def is_valid_win_filename(nombre):
     return True
 
 
+def close_prg():
+    input("\n* Presione 'Enter' para cerrar.")
+    sys.exit(0)
+
+
 
 ### Read input data - arguments
 if len(sys.argv) < 3:       # Show usage + structure of cursor.description + value and exit
     # Usage message display
-    prg_name = os.path.basename(sys.argv[0])
-    print(f"Uso: {prg_name} <nomnbre del .csv -SIN espacios -SIN extensión .csv> <número de registro>")
+    print(usage_msg(sys.argv[0]))
 
     ## Field Structure (+ Value) display and save
     mini_headers = ["Index", "Element", "Meaning"]
@@ -115,8 +129,8 @@ if len(sys.argv) < 3:       # Show usage + structure of cursor.description + val
     ]
 
     # Console Ouput
-    title = " * Esctructura del campo + valor del dato del campo:"
-    print(f"\n{title}\n")
+    struct_title = " * Esctructura del campo + valor del dato del campo:"
+    print(f"\n{struct_title}\n")
     print(f"{mini_headers[0]:<8} {mini_headers[1]:<20} {mini_headers[2]}")
     print("--" * 56)
     for row in table_data:
@@ -125,19 +139,18 @@ if len(sys.argv) < 3:       # Show usage + structure of cursor.description + val
     # Save to .txt
     txt_desc = f"estructura_campo.txt"
     with open(txt_desc, 'w', encoding='utf-8') as f:
-        f.write(f"{title}\n\n")
+        f.write(f"{struct_title}\n\n")
         f.write(f"{mini_headers[0]:<8} {mini_headers[1]:<20} {mini_headers[2]}\n")
         f.write("--" * 56 + "\n")
         for row in table_data:
             f.write(f"{str(row[0]):<8} {row[1]:<20} {row[2]}\n")
 
-    print(f"\n✔️  Structure saved to '{txt_desc}'")
-    input('\n --> Press ENTER to close...')
-    sys.exit(0)
+    print(f"\n✔️  Estructura guardada en: '{txt_desc}'")
+    close_prg()
 
-else:                       # Read .csv filename + record_number + SQL Srv query
+else:                               # Read .csv filename + record_number + SQL Srv query
     try:
-        csv_file = sys.argv[1]
+        csv_file = sys.argv[1]                      # read csv filenme wo/extension
         if not is_valid_win_filename(csv_file):
             raise ValueError
     except ValueError:
@@ -145,14 +158,14 @@ else:                       # Read .csv filename + record_number + SQL Srv query
         sys.exit(1)
 
     try:
-        record_number = int(sys.argv[2])
+        record_number = int(sys.argv[2])            # read register number
         if record_number <= 0:
             raise ValueError
     except ValueError:
         print(f"{err_sign} ❌ The record number must be a positive integer.")
         sys.exit(1)
 
-    if not os.path.exists(query_file):                          # Load query from file
+    if not os.path.exists(query_file):              # Load query from query_file
         print(f"{err_sign} ❌ Query file '{query_file}' not found.")
         sys.exit(1)
 
@@ -164,22 +177,27 @@ else:                       # Read .csv filename + record_number + SQL Srv query
         sys.exit(1)
 
 
-## Additional constants - Output filename(s)
+### Additional constants - Output filename(s)
 txt_file = f"{csv_file}_{record_number}_{timestamp}.txt"
-csv_fname = f"{csv_file}.csv"
+csv_filename = f"{csv_file}.csv"
 
-## Main process
+
+
+### main. Two process: register_analysis and query_to_csv
+
+## DB inspection (conn + qry), needed for both processes
 with pyodbc.connect(conn_str) as conn:
     cursor = conn.cursor()          # Make DB connection
     cursor.execute(sql_query)       # Execute the query
 
+## Register analysis
     rows = cursor.fetchall()        # Read all registers of the query's output
     if not cursor.description:
-        print("❌ Query returned no columns.")
+        print(f"{err_sign} ❌ Query returned no columns.")
         sys.exit(1)
 
     if len(rows) < record_number:
-        print(f"❌ Only {len(rows)} records found. Record #{record_number} is out of range.")
+        print(f"{err_sign} ❌ Only {len(rows)} records found. Record #{record_number} is out of range.")
         sys.exit(1)
 
     selected_row = rows[record_number - 1]      # 0 register indexing
@@ -199,8 +217,9 @@ with pyodbc.connect(conn_str) as conn:
         ]
         table_rows.append(row_data)     # Append new line of output info
 
+    title = f"* Información detallada del registro #{record_number}:"
     # Console output
-    print(f"\n📄 Full information for record #{record_number}:\n")
+    print(f"\n{title}\n")
     print(f"{headers[0]:<20} {headers[1]:<30} {headers[2]:<13} {headers[3]:<14} "
           f"{headers[4]:<10} {headers[5]:<7} {headers[6]:<8} {headers[7]}")
     print("-" * 130)
@@ -210,14 +229,31 @@ with pyodbc.connect(conn_str) as conn:
 
     # Save to .txt
     with open(txt_file, 'w', encoding='utf-8') as f:
-        f.write(f"Full information for record #{record_number}:\n\n")
+        f.write(f"{title}\n\n")
         f.write(f"{headers[0]:<20} {headers[1]:<30} {headers[2]:<13} {headers[3]:<14} "
                 f"{headers[4]:<10} {headers[5]:<7} {headers[6]:<8} {headers[7]}\n")
         f.write("-" * 130 + "\n")
         for row in table_rows:
             f.write(f"{str(row[0]):<20} {str(row[1]):<30} {str(row[2]):<13} {str(row[3]):<14} "
                     f"{str(row[4]):<10} {str(row[5]):<7} {str(row[6]):<8} {row[7]}\n")
+            
+    ## Query to .csv
+    # Get columns names
+    columns = [column[0] for column in column_info]
 
-    print(f"\n✅ Output saved to:   - {txt_file}")
-    input("\nPress 'Enter' to finish.")
+    # Write .csv with ';' separator and utg-9 w/BOM codification
+    with open(csv_filename, mode='w', newline='', encoding='utf-8-sig') as f:
+        writer = csv.writer(f, delimiter=';')
+        writer.writerow(columns)                # Write result columns headers
+        for row in rows:
+            writer.writerow(row)
+
+
+
+    ### Output info and End.
+    print(f"\n* Archivos de salida:")
+    print(f"  - {txt_file:<56} <- Análisis de un registro\n  - {csv_filename:<56} <- Query como .csv\n")
+
+    close_prg()
+
 

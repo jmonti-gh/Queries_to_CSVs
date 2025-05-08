@@ -1,0 +1,16 @@
+Declare @FechaCorte date set @fechacorte='20250331'
+DECLARE @Atraso TABLE(Fecha DATE, Sucursal INT, Módulo INT, Cuenta INT, Operacion INT, Subop INT, Tipo_Oper INT, RI108Plazo INT)
+INSERT INTO @Atraso
+select ri108fec,ri108suc,ri108mod,ri108cta,ri108oper,ri108sbop, ri108tope, ri108plazo from fri108 where ri108fec=@fechacorte and ri108mod in (37)
+select scnom as 'Sucursal/Agencia', Sucursal, Módulo as Módulo, Tipo_Oper as Tipo_Oper, FSR008.PETDOC as TipoDoc,FSR008.PENDOC as NroDoc, Cuenta as Cuenta, case when Tipo_Oper=1 then 'Credencial' when Tipo_Oper=2
+then 'Mastercard' when Tipo_Oper=3 then 'Cautivas' when Tipo_Oper=4 then 'Cautivas' when Tipo_Oper=5 then 'Montemar' when Tipo_Oper=6 then 'Credencial' else '' end as Producto, Operacion as 
+Operación, Subop AS Subop, ri108plazo as Atraso, convert(float,sum (bcsdmn)) as DeudaTotal, CatCateg as CatResultante from fsh012 (nolock) inner join
+FSD212 on fsh012.BCCta = fsd212.catcta INNER JOIN
+FST001 ON SUCURS=BCSUC INNER JOIN
+FSR008 ON CTNRO=BCCTA inner JOIN -- ojo, quizás se corresponda en algún mes LEFT JOIN
+@Atraso a ON a.sucursal=bcsuc and a.cuenta=BCCTA AND a.Operacion=bcoper and a.Subop=bcsbop
+where BCEMP=1 AND bcfech=@fechacorte and (bcrubr in (select rubro from fsd014 where pcnivc in (37) AND Rubro NOT LIKE '7%' AND FSD014.Rubro NOT LIKE '3%') or
+bcrubr in (select rrrubr from fsr014 inner join
+fsd014 on fsr014.rubro=fsd014.rubro
+where pcnivc in (37) and rrcod in (1, 205, 206, 401, 495) AND FSD014.Rubro NOT LIKE '7%' AND FSD014.Rubro NOT LIKE '3%')) and bcsdmn<>0 and 
+CatFchDes=@fechacorte and CatCod=4 group by scnom,fsr008.petdoc,fsr008.pendoc,Cuenta,Operacion,Subop,ri108plazo,catcateg,Módulo,Tipo_Oper,Sucursal order by Cuenta

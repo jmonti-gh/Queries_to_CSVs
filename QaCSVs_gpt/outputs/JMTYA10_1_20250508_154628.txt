@@ -1,0 +1,73 @@
+* Información detallada del registro #1:
+
+Field_name           type_code                      display_size  internal_size  precision  scale   null_ok  Value
+----------------------------------------------------------------------------------------------------------------------------------
+jmtYA10Pgc           <class 'int'>                  None          5              5          0       False    1
+jmtYA10Mod           <class 'int'>                  None          5              5          0       False    21
+jmtYA10Suc           <class 'int'>                  None          5              5          0       False    10
+jmtYA10Mda           <class 'int'>                  None          5              5          0       False    80
+jmtYA10Pap           <class 'int'>                  None          5              5          0       False    0
+jmtYA10Cta           <class 'int'>                  None          10             10         0       False    366374
+jmtYA10Ope           <class 'int'>                  None          10             10         0       False    0
+jmtYA10Sbo           <class 'int'>                  None          5              5          0       False    2
+jmtYA10Top           <class 'int'>                  None          5              5          0       False    28
+jmtYA10FcA           <class 'datetime.datetime'>    None          23             23         3       True     2025-03-31 00:00:00
+jmtYA10Uco           <class 'str'>                  None          10             10         0       True     PMORALE   
+jmtYA10Ure           <class 'str'>                  None          10             10         0       True     A_REVISAR 
+jmtYA10Uap           <class 'str'>                  None          10             10         0       True               
+jmtYA10Pln           <class 'str'>                  None          25             25         0       True                              
+jmtYA10Cns           <class 'decimal.Decimal'>      None          15             15         0       True     0
+jmtYA10Scr           <class 'int'>                  None          5              5          0       True     0
+jmtYA10Tga           <class 'int'>                  None          5              5          0       True     0
+jmtYA10Mrn           <class 'int'>                  None          5              5          0       True     0
+jmtYA10Mrf           <class 'int'>                  None          5              5          0       True     0
+jmtYA10F1            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F2            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F3            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F4            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F5            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F6            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F7            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F8            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F9            <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10F10           <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+jmtYA10C1            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C2            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C3            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C4            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C5            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C6            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C7            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C8            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C9            <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10C10           <class 'str'>                  None          50             50         0       True                                                       
+jmtYA10N1            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N2            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N3            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N4            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N5            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N6            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N7            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N8            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N9            <class 'int'>                  None          10             10         0       True     0
+jmtYA10N10           <class 'int'>                  None          10             10         0       True     0
+jmtYA10I1            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I2            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I3            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I4            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I5            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I6            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I7            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I8            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I9            <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+jmtYA10I10           <class 'decimal.Decimal'>      None          17             17         2       True     0.00
+SIMCACOR             <class 'decimal.Decimal'>      None          18             18         2       True     0.00
+SIMNACOR             <class 'decimal.Decimal'>      None          18             18         2       True     0.00
+RDOSCRVER            <class 'str'>                  None          1              1          0       True      
+CBSUGER              <class 'int'>                  None          5              5          0       True     0
+CBRELBAS             <class 'int'>                  None          5              5          0       True     0
+CBSCRINT             <class 'int'>                  None          5              5          0       True     0
+CBCUOACO             <class 'int'>                  None          5              5          0       True     0
+CBCAPACO             <class 'int'>                  None          5              5          0       True     0
+SIMCAPAG             <class 'decimal.Decimal'>      None          18             18         2       True     0.00
+SIMNAPAG             <class 'decimal.Decimal'>      None          18             18         2       True     0.00

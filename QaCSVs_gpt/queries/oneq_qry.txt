@@ -1,0 +1,1 @@
+select * from jmtya10 (nolock) where jmtya10pgc=1 and jmtya10fca<=f_corte order by jmtya10fca desc

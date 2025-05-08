@@ -1,0 +1,62 @@
+DECLARE @Fecha_corte date set @Fecha_corte=f_corte
+DECLARE @Tabla TABLE(cta_bto INT,tip_tar varchar(10),nro_cta INT,fec_com datetime,fec_vto datetime,nro_cup int,ctd_cuo int,cod_mov int,imp_cuo decimal(18,2))
+INSERT INTO @Tabla
+select cta_bto,tip_tar,nro_cta,fec_com,fec_vto,nro_cup,ctd_cuo,cod_mov,convert(float,(imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10
+where fec_com between '20180101' and @Fecha_corte and cod_mov in (53,55) 
+and nro_cta<=27000
+DECLARE @Tabla2 TABLE(cta_bto INT,tip_tar varchar(10),nro_cta INT,fec_vto datetime,nro_cup int,ctd_cuo int,cod_mov int,imp_cuo decimal(18,2))
+INSERT INTO @Tabla2
+select distinct a.cta_bto,a.tip_tar,a.nro_cta,a.fec_vto-15,a.nro_cup,a.ctd_cuo,a.cod_mov,convert(float,a.imp_cuo) as Importe from mps_cautivas..movtrjpro_2016_10 a
+inner join @Tabla b on a.cta_bto=b.cta_bto and a.nro_cta=b.nro_cta and a.fec_com=b.fec_com and a.nro_cup=b.nro_cup and a.ctd_cuo=b.ctd_cuo --and a.tip_tar=b.tip_tar
+where a.fec_com between '20180101' and @Fecha_corte and a.cod_mov in (71) 
+and a.nro_cta<=27000
+DECLARE @Tabla3 TABLE(cta_bto INT,tip_tar varchar(10),nro_cta INT,fec_vto datetime,fec_com datetime,nro_cup int,ctd_cuo int,cod_mov int,imp_cuo decimal(18,2))
+INSERT INTO @Tabla3
+select distinct d.cta_bto,d.tip_tar,d.nro_cta,d.fec_vto,d.fec_com,d.nro_cup,d.ctd_cuo,d.cod_mov,convert(float,sum(d.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 d
+inner join @Tabla2 c on c.cta_bto=d.cta_bto and c.nro_cta=d.nro_cta and c.fec_vto=d.fec_vto and c.nro_cup=d.nro_cup and c.ctd_cuo=d.ctd_cuo --and c.tip_tar=d.tip_tar
+where d.fec_com between '20180101' and @Fecha_corte and d.cod_mov in (21) 
+and d.nro_cta<=27000
+group by d.cta_bto,d.tip_tar,d.nro_cta,d.fec_vto,d.fec_com,d.nro_cup,d.ctd_cuo,d.cod_mov
+DECLARE @Tabla4 TABLE(cta_bto INT,tip_tar varchar(10),nro_cta INT,fec_com datetime,nro_cup int,ctd_cuo int,cod_mov int,imp_cuo decimal(18,2))
+INSERT INTO @Tabla4
+select distinct a.cta_bto,a.tip_tar,a.nro_cta,a.fec_com,a.nro_cup,a.ctd_cuo,a.cod_mov,convert(float,sum(a.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 a
+inner join @Tabla m on a.cta_bto=m.cta_bto and a.nro_cta=m.nro_cta and a.fec_com=m.fec_com and a.fec_vto=m.fec_vto and a.nro_cup=m.nro_cup and a.ctd_cuo=m.ctd_cuo --and a.tip_tar=b.tip_tar
+where a.fec_com between '20180101' and @Fecha_corte and a.cod_mov in (71) 
+and a.nro_cta<=27000
+group by a.cta_bto,a.tip_tar,a.nro_cta,a.fec_com,a.nro_cup,a.ctd_cuo,a.cod_mov
+--
+select distinct d.cta_bto,d.tip_tar,d.nro_cta,d.fec_com,d.nro_cup,d.ctd_cuo,d.cod_mov,convert(float,d.imp_cuo) as Importe from mps_cautivas..movtrjpro_2016_10 d
+inner join @Tabla2 c on c.cta_bto=d.cta_bto and c.nro_cta=d.nro_cta and c.fec_vto=d.fec_vto and c.nro_cup=d.nro_cup and c.ctd_cuo=d.ctd_cuo --and c.tip_tar=d.tip_tar
+where d.fec_com between '20180101' and @Fecha_corte and d.cod_mov in (21) 
+and d.nro_cta<=27000
+UNION
+select distinct e.cta_bto,e.tip_tar,e.nro_cta,e.fec_vto,e.nro_cup,e.ctd_cuo,e.cod_mov,convert(float,e.imp_cuo) as Importe from @Tabla2 e
+UNION
+select cta_bto,tip_tar COLLATE Latin1_General_CI_AS ,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov,convert(float,sum(imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10
+where fec_com between '20180101' and @Fecha_corte and cod_mov in (51,52,53,54,56,57,59,60,65,68,71,73,78,79,83,87,90,92,4,6,21,22,25,26,28,29,40)
+and nro_cta<=27000
+group by cta_bto,tip_tar,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov
+union 
+select cta_bto,tip_tar COLLATE Latin1_General_CI_AS,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov,convert(float,sum(imp_cuo))  from mps_cautivas..movtrjpro_2016_10
+where fec_com between '20180101' and @Fecha_corte and cod_mov in (55) and nro_cup not in (35202000,36202000,55000070,55209900) and nro_cup>=55000000
+and nro_cta<=27000
+group by cta_bto,tip_tar,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov
+except
+select g.cta_bto,g.tip_tar COLLATE Latin1_General_CI_AS ,g.nro_cta,g.fec_com,g.nro_cup,g.ctd_cuo,g.cod_mov,convert(float,sum(g.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 g
+inner join @Tabla2 h on g.cta_bto=h.cta_bto and g.nro_cta=h.nro_cta and g.fec_vto=h.fec_vto and g.nro_cup=h.nro_cup and g.ctd_cuo=h.ctd_cuo --and g.tip_tar=h.tip_tar
+where fec_com between '20180101' and @Fecha_corte and g.cod_mov in (71)
+and g.nro_cta<=27000
+group by g.cta_bto,g.tip_tar,g.nro_cta,g.fec_com,g.nro_cup,g.ctd_cuo,g.cod_mov
+except
+select i.cta_bto,i.tip_tar COLLATE Latin1_General_CI_AS ,i.nro_cta,i.fec_com,i.nro_cup,i.ctd_cuo,i.cod_mov,convert(float,sum(i.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 i
+inner join @Tabla3 j on i.cta_bto=j.cta_bto and i.nro_cta=j.nro_cta and i.fec_vto=j.fec_vto and i.fec_com=j.fec_com and i.nro_cup=j.nro_cup and i.ctd_cuo=j.ctd_cuo --and i.tip_tar=h.tip_tar
+where i.fec_com between '20180101' and @Fecha_corte and i.cod_mov in (21)
+and i.nro_cta<=27000
+group by i.cta_bto,i.tip_tar,i.nro_cta,i.fec_com,i.nro_cup,i.ctd_cuo,i.cod_mov
+except
+select i.cta_bto,i.tip_tar COLLATE Latin1_General_CI_AS ,i.nro_cta,i.fec_com,i.nro_cup,i.ctd_cuo,i.cod_mov,convert(float,sum(i.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 i
+inner join @Tabla4 o on i.cta_bto=o.cta_bto and i.nro_cta=o.nro_cta and i.fec_com=o.fec_com and i.nro_cup=o.nro_cup and i.ctd_cuo=o.ctd_cuo --and i.tip_tar=h.tip_tar
+where i.fec_com between '20180101' and @Fecha_corte and i.cod_mov in (71)
+and i.nro_cta<=27000
+group by i.cta_bto,i.tip_tar,i.nro_cta,i.fec_com,i.nro_cup,i.ctd_cuo,i.cod_mov
+order by d.cta_bto,d.tip_tar,d.nro_cta,d.fec_com,d.nro_cup,d.ctd_cuo,d.cod_mov

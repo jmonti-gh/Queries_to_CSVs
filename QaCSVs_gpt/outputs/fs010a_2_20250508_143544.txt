@@ -1,0 +1,46 @@
+* Información detallada del registro #2:
+
+Field_name           type_code                      display_size  internal_size  precision  scale   null_ok  Value
+----------------------------------------------------------------------------------------------------------------------------------
+Pgcod                <class 'int'>                  None          5              5          0       False    1
+Aomod                <class 'int'>                  None          5              5          0       False    22
+Aosuc                <class 'int'>                  None          5              5          0       False    10
+Aomda                <class 'int'>                  None          5              5          0       False    2
+Aopap                <class 'int'>                  None          5              5          0       False    0
+Aocta                <class 'int'>                  None          10             10         0       False    101006
+Aooper               <class 'int'>                  None          10             10         0       False    184702
+Aosbop               <class 'int'>                  None          5              5          0       False    0
+Aotope               <class 'int'>                  None          5              5          0       False    1
+Aofval               <class 'datetime.datetime'>    None          23             23         3       True     2018-05-08 00:00:00
+Aofvto               <class 'datetime.datetime'>    None          23             23         3       True     2018-06-11 00:00:00
+Aopzo                <class 'int'>                  None          10             10         0       True     34
+Aottas               <class 'int'>                  None          5              5          0       True     2
+Aotasa               <class 'decimal.Decimal'>      None          10             10         6       True     2.000000
+Aotmor               <class 'decimal.Decimal'>      None          10             10         6       True     0.000000
+Aottac               <class 'int'>                  None          5              5          0       True     0
+Aotasc               <class 'decimal.Decimal'>      None          10             10         6       True     0.000000
+Aotdia               <class 'int'>                  None          5              5          0       True     2
+Aotvto               <class 'str'>                  None          1              1          0       True     P
+Aotano               <class 'int'>                  None          5              5          0       True     2
+Aotint               <class 'str'>                  None          1              1          0       True     C
+Aodrev               <class 'int'>                  None          10             10         0       True     0
+Aoimp                <class 'decimal.Decimal'>      None          17             17         2       True     10500.00
+Aopre                <class 'decimal.Decimal'>      None          14             14         8       True     0E-8
+Aopre1               <class 'decimal.Decimal'>      None          14             14         8       True     0E-8
+Aotcbi               <class 'decimal.Decimal'>      None          14             14         8       True     0E-8
+Aotcbi1              <class 'decimal.Decimal'>      None          14             14         8       True     10.00000000
+Aoarb                <class 'decimal.Decimal'>      None          14             14         8       True     0E-8
+Aoarb1               <class 'decimal.Decimal'>      None          14             14         8       True     0E-8
+Aomd                 <class 'str'>                  None          1              1          0       True      
+Aomd1                <class 'str'>                  None          1              1          0       True      
+Aonume               <class 'decimal.Decimal'>      None          17             17         2       True     19.56
+Aofnum               <class 'datetime.datetime'>    None          23             23         3       True     1753-01-01 00:00:00
+Aoafiv               <class 'str'>                  None          1              1          0       True      
+Aocbcu               <class 'int'>                  None          5              5          0       True     0
+Aostat               <class 'int'>                  None          5              5          0       True     99
+Aoavis               <class 'int'>                  None          5              5          0       True     0
+Aoplus               <class 'decimal.Decimal'>      None          10             10         6       True     0.000000
+Aoeven               <class 'int'>                  None          10             10         0       True     0
+Aofe99               <class 'datetime.datetime'>    None          23             23         3       True     2018-06-11 00:00:00
+Aocltcod             <class 'int'>                  None          5              5          0       True     0
+Aoperiod             <class 'int'>                  None          10             10         0       True     0

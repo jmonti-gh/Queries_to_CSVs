@@ -1,0 +1,6 @@
+Apr 03 11:56:45 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list_Coef_PD_EAD.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202504031156.log
+Apr 03 11:56:45 err_ >ERROR en 6.1.! Falló la lectura de listas/CSVs_list_Coef_PD_EAD.xlsx
+        [Errno 2] No such file or directory: 'listas/CSVs_list_Coef_PD_EAD.xlsx'
+Apr 03 11:56:45 err_ ABORT Execution: llamado a la función exit_prg()

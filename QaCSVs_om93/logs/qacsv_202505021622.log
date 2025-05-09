@@ -1,0 +1,583 @@
+May 02 16:22:57 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list_202503.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202505021622.log
+May 02 16:22:57 ok_ > listas/CSVs_list_202503.xlsx leído correctamente:
+    Periodo Carpeta Nombre archivo CSV             Server Base
+0  202503.0     PDS     FSD002 1°parte  172.31.119.50 Bantotal
+1       NaN     NaN     FSD002 2°parte                     NaN
+2       NaN     NaN             FSD010                     NaN
+May 02 16:22:57 ok_ > Fecha leída, Periodo: 202503.- Calculados; Fecha de corte: '20250331',
+            Corte del mismo mes del año anterior: '20240331' 
+May 02 16:22:57 inf_ Conexiones a DB a establecer:
+ ['172.31.119.50 Bantotal' '172.16.1.12\\MZ12 Mastercard'
+ '172.16.1.12\\MZ12 MPS_Cautivas']
+May 02 16:22:57 inf_  DB_ Conectando con: 172.31.119.50 Bantotal...
+May 02 16:22:57 ok_ > DB_ Conexión con 172.31.119.50 Bantotal ESTABLECIDA! (1 _ * 172.31.119.50 Bantotal *)
+May 02 16:22:57 inf_ Iniciando procesamiento de queries a 172.31.119.50 Bantotal - 37 queries
+May 02 16:22:57 inf_ 1 _ < FSD002 1°parte.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/FSD002 1°parte.csv'
+ Query:
+select * from fsd002 where pfndoc<'23667666' order by pfndoc  
+May 02 16:23:10 ok_ 1 _ < FSD002 1°parte.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/FSD002 1°parte.csv' 
+May 02 16:23:10 inf_ 2 _ < FSD002 2°parte.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/FSD002 2°parte.csv'
+ Query:
+select * from fsd002 where pfndoc>='23667666' order by pfndoc  
+May 02 16:23:31 ok_ 2 _ < FSD002 2°parte.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/FSD002 2°parte.csv' 
+May 02 16:23:31 inf_ 3 _ < FSD010.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/FSD010.csv'
+ Query:
+select Pgcod,Aomod,Aosuc,Aomda,Aopap,Aocta,Aooper,Aosbop,Aotope,convert(datetime,Aofval,121) as Aofval,convert(datetime,Aofvto,121) as Aofvto,convert(float,Aopzo) as Aopzo,Aottas,convert(float,Aotasa) as Aotasa,Aotmor,convert(float,Aottac) as Aottac,Aotasc,Aotdia,Aotvto,Aotano,Aotint,Aodrev,convert(float,Aoimp) as Aoimp,Aopre,Aopre1,Aotcbi,convert(float,Aotcbi1) as Aotcbi1,Aoarb,Aoarb1,Aomd,Aomd1,Aonume,Aofnum,Aoafiv,Aocbcu,Aostat,Aoavis,Aoplus,Aoeven,convert(datetime,Aofe99,121) as Aofe99,Aocltcod,Aoperiod from fsd010 where aomod in (101,102,103,104) and aopzo>0 and aofval <='20250331' union
+select Pgcod,Aomod,Aosuc,Aomda,Aopap,Aocta,Aooper,Aosbop,Aotope,convert(datetime,Aofval,121) as Aofval,convert(datetime,Aofvto,121) as Aofvto,convert(float,Aopzo) as Aopzo,Aottas,convert(float,Aotasa) as Aotasa,Aotmor,convert(float,Aottac) as Aottac,Aotasc,Aotdia,Aotvto,Aotano,Aotint,Aodrev,convert(float,Aoimp) as Aoimp,Aopre,Aopre1,Aotcbi,convert(float,Aotcbi1) as Aotcbi1,Aoarb,Aoarb1,Aomd,Aomd1,Aonume,Aofnum,Aoafiv,Aocbcu,Aostat,Aoavis,Aoplus,Aoeven,convert(datetime,Aofe99,121) as Aofe99,Aocltcod,Aoperiod from fsd010 where aomod in (71) and aofval <='20250331' 
+May 02 16:23:52 ok_ 3 _ < FSD010.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/FSD010.csv' 
+May 02 16:23:52 inf_ 4 _ < FSD601.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/FSD601.csv'
+ Query:
+select ppmod,ppcta,ppoper,ppsbop,convert(float,count(*)) as Cuotas,convert(datetime,min(ppfvto),121) as ppfvto from fsd601 where pgcod=1 and ppmod in (101,102,103,104) and d601co='S' and d601fc<='20250331'
+group by ppmod,ppcta,ppoper,ppsbop 
+May 02 16:24:06 ok_ 4 _ < FSD601.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/FSD601.csv' 
+May 02 16:24:06 inf_ 5 _ < FSR011 refi.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/FSR011 refi.csv'
+ Query:
+select * from fsr011 where relcod in (500,650) and r011fc<='20250331' 
+May 02 16:24:07 ok_ 5 _ < FSR011 refi.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/FSR011 refi.csv' 
+May 02 16:24:07 inf_ 6 _ < FSR008.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/FSR008.csv'
+ Query:
+select * from fsr008 where pgcod=1 
+May 02 16:24:11 ok_ 6 _ < FSR008.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/FSR008.csv' 
+May 02 16:24:11 inf_ 7 _ < FSR011-gtías.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/FSR011-gtías.csv'
+ Query:
+select * from fsr011 where relcod=11 and r2mod=69 
+May 02 16:24:13 ok_ 7 _ < FSR011-gtías.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/FSR011-gtías.csv' 
+May 02 16:24:13 inf_ 8 _ < Ingresos originales.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/Ingresos originales.csv'
+ Query:
+select jmtYA10Mod,jmtYA10Suc,jmtYA10Cta,jmtYA10Ope,jmtYA10Top,convert(datetime,jmtYA10FcA,121) as jmtYA10FcA,convert(float,a.WFAttSVal)'CLINGBRUTO' ,convert(float,b.WFAttSVal)'CLINGNETO'  from jmtya10 
+left join wfattsvalues a (nolock) on jmtYA10N1 = a.wfinsprcid and a.WFAttSId = 'CLINGBRUTO'                                        
+left join wfattsvalues b (nolock) on jmtYA10N1 = b.wfinsprcid and b.WFAttSId = 'CLINGNETO'        
+where jmtYA10Mod in (101,102,103,104,37,71) and jmtYA10N1 <> 0 and jmtya10fca<>'1753-01-01' and jmtya10fca<='20250331' order by jmtya10fca desc 
+May 02 16:24:24 ok_ 8 _ < Ingresos originales.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/Ingresos originales.csv' 
+May 02 16:24:24 inf_ 9 _ < ipcempalme ipim.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/ipcempalme ipim.csv'
+ Query:
+__FACPCE__ 
+May 02 16:24:24 err_ 9 _ < ipcempalme ipim.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:24:24 inf_ 10 _ < in tarjetas.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/in tarjetas.csv'
+ Query:
+__COBOL__ 
+May 02 16:24:24 err_ 10 _ < in tarjetas.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:24:24 inf_ 11 _ < JMTI00.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/JMTI00.csv'
+ Query:
+select * from jmti00 where jmti00adm='MC' 
+May 02 16:24:29 ok_ 11 _ < JMTI00.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/JMTI00.csv' 
+May 02 16:24:29 inf_ 12 _ < JMTX041.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/JMTX041.csv'
+ Query:
+select 
+convert(datetime,JMTX041Fec,121)   as Fecha,
+JMTX041Tdoc  as TipoDoc,
+JMTX041Pdoc  as PaisDoc,
+JMTX041Ndoc  as NroDoc,
+(case JMTX041Cta when 999999999 then 0 else JMTX041Cta end) as NroCuenta,
+JMTX041Ins   as NroInstancia,
+JMTX041Ape1  as Apellido1,
+JMTX041Ape2  as Apellido2,
+JMTX041Nom1  as Nombre1,
+JMTX041Nom2  as Nombre2,
+JMTX041Rsoc  as RazonSocial,
+convert(datetime,JMTX041Fecn,121)  as FecNac,
+JMTX041Sex   as Sexo,
+JMTX041Emp   as EsEmpleadoMTM,
+isnull((select Ecnom from  fst009 (nolock) where Eccod=JMTX041Estc ),'')  as EstadoCivil,
+JMTX041Ingp  as IngresoPareja,
+(case JMTX041Uvc 
+  when 1 then 'Solo' 
+  when 2 then 'Padres'  
+  when 3 then 'Esposa/Hijos' 
+  when 4 then 'Pareja/Hijos'  
+  when 5 then 'Comparte con 3eros' 
+  when 6 then 'Hijos' 
+  when 7 then 'Otros' 
+  else '' end) as UstedViveCon,
+JMTX041Use as EsUnicoSosten,
+(case JMTX041Duv
+  when 1 then 'Propietario' 
+  when 2 then 'Alquila' 
+  when 3 then 'Otros'   
+  else ''
+  end) as DondeUstedViveEs,
+JMTX041Ial as ImporteAlquiler,
+(case JMTX041Cdor when 99 then 'mas de 4' when 999 then 'No desea contestar' else (cast(JMTX041Cdor as Varchar(20))) end)as CantDormitorios,
+(case JMTX041Cban when 99 then 'mas de 6' when 999 then 'No desea contestar' else (cast(JMTX041Cban as Varchar(20))) end)as CantBanios,
+(case JMTX041Canh when 99 then 'mas de 6' when 999 then 'No desea contestar'else (cast(JMTX041Canh as Varchar(20)))end)   as CantHijos,
+(case JMTX041Hes when 99 then 'mas de 6' when 999 then 'No desea contestar'else (cast(JMTX041Hes as Varchar(20)))end) as CantHijosEscolarizados,
+(case JMTX041Tesc when 1 then 'Pública' when 2 then 'Privada' when 3 then 'Mixto' when 999 then 'No desea contestar' else '' end) as TipoEscuela,    
+(case JMTX041Hnv when 99 then 'mas de 6' when 999 then 'No desea contestar'else (cast(JMTX041Hnv as Varchar(20)))end) as CantHijosNoVivenConsUsted,
+(case JMTX041Pveh when 'A' then 'Auto' when 'M' then 'Moto' When 'N' then 'N' else JMTX041Pveh end) as PoseeVehiculo,
+JMTX041Int   as PoseeInternet,
+JMTX041Ptv   as PoseeTvCable,
+JMTX041Psv   as PoseeSegVivienda,
+JMTX041Psa   as PoseeSegAuto,
+JMTX041Psi   as PoseeSegVida,
+JMTX041Cse   as PoseeCobServicio,
+ISNULL((SELECT  Tpdesc  FROM FST098 (nolock)
+       Where PgCod=1
+       AND Tpcod  = 2184
+       AND Tpcorr <100
+       AND  Tpcorr <> 7
+       AND Tpcorr <> 8
+    AND Tpcorr = JMTX041Ttra),'')
+as TipoTrabajo,
+convert(datetime,JMTX041Fei,121) as FecIngresoLaboral,
+JMTX041Dcob as DondeCobra,
+JMTX041Ems as TieneEmbargoSueldo,
+JMTX041Empr as NombreEmpresa,     
+(case JMTX041Usr when 'NSBT' then 'WEB' else JMTX041Usr end) as Usuario, 
+isnull((case JMTX041Usr when 'NSBT' then 90 else (select Sucurs from fst046 f46 (nolock) 
+inner join fst001 f1 (nolock) on f46.Pgcod= f1.Pgcod and f46.Ubsuc=f1.Sucurs
+where ubuser = JMTX041Usr) end),0 ) as Sucursal
+from jmtx041 (nolock)   where JMTX041Fec<='20250331'
+order by Fecha, NroDoc 
+May 02 16:26:13 ok_ 12 _ < JMTX041.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/JMTX041.csv' 
+May 02 16:26:13 inf_ 13 _ < JMTYA10.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/JMTYA10.csv'
+ Query:
+select * from jmtya10 (nolock) where jmtya10pgc=1 and jmtya10fca<='20250331' order by jmtya10fca desc 
+May 02 16:27:51 err_ 13 _ < JMTYA10.csv >ERROR en 10.d! Falló  Query a la DB
+                NaTType does not support strftime
+May 02 16:27:51 inf_ 14 _ < Base_pond_por_var_aux.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/Base_pond_por_var_aux.csv'
+ Query:
+select scnom as 'Sucursal/Agencia', aosuc as Sucursal,ri108mod as Módulo,ri108tope as Tipo_Oper,
+petdoc as TipoDoc,pendoc as NroDoc,ri108cta as Cuenta,
+case when aomod=101 then 'Hipotecario' when aomod=102 then 'Prendario' when aomod=104 then 'Microemp.' 
+when aomod=103 then 'Personal' when aomod=71 then 'Documento' else '' end as Producto,
+ri108oper as Operación,ri108sbop as Subop, ri108plazo as Atraso,convert(datetime,min(ri108fec),121) as Fecha_1er_Atraso from fri108 
+inner join fsd010 on aocta=ri108cta and aooper=ri108oper and aosbop=ri108sbop and aotope=ri108tope and aosuc=ri108suc and aomod=ri108mod
+inner join fst001 on sucurs=aosuc
+inner join FSR008 ON CTNRO=aocta 
+where ri108emp=1 and ri108mod in (71,101,102,103,104) and ri108fec between '20140501' and '20250331'
+and ri108emp=1 and ri108plazo>90 and aofval between '20140501' and '20240331'  and aotope<>0
+group by scnom,aosuc,ri108mod,ri108tope,petdoc,pendoc,ri108cta,aomod,ri108oper,RI108Sbop,ri108plazo
+order by scnom,aosuc,ri108mod,ri108tope,petdoc,pendoc,ri108cta,aomod,ri108oper,RI108Sbop,Fecha_1er_Atraso,ri108plazo 
+May 02 16:28:15 ok_ 14 _ < Base_pond_por_var_aux.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/Base_pond_por_var_aux.csv' 
+May 02 16:28:15 inf_ 15 _ < Base_pond_por_variable.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/Base_pond_por_variable.csv'
+ Query:
+select distinct scnom as 'Sucursal/Agencia', aosuc as Sucursal,aomod AS Módulo,aotope as Tipo_Oper,
+petdoc as TipoDoc,pendoc as NroDoc,aocta as Cuenta,
+case when aomod=101 then 'Hipotecario' when aomod=102 then 'Prendario' when aomod=104 then 'Microemp.' 
+when aomod=103 then 'Personal' when aomod=71 then 'Documento' else '' end as Producto,
+aooper as Operación, aosbop as Subop,convert(datetime,aofval,121) as Fecha_Alta,
+convert(datetime,aofvto,121) as aofvto, aopzo,convert(float,aotasa) as aotasa,
+convert(float,aoimp) as aoimp,convert(float,aonume) as aonume,convert(datetime,aofe99,121) as aofe99
+from fsd010
+inner join fst001 on sucurs=aosuc
+inner join FSR008 ON CTNRO=aocta 
+inner join fsd601 on aocta=ppcta and aooper=ppoper and aosuc=ppsuc and aosbop=ppsbop
+where aomod in (101,102,103,104) and aofval between '20140501' and '20240331' AND TTCOD=1 and aotope<>0 and AOPZO<>0 
+May 02 16:28:38 ok_ 15 _ < Base_pond_por_variable.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/Base_pond_por_variable.csv' 
+May 02 16:28:38 inf_ 16 _ < BNAI02.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/BNAI02.csv'
+ Query:
+select BNAI02Emp,BNAI02Mod,BNAI02Suc,BNAI02Mda,BNAI02Pap,BNAI02Cta,BNAI02Ope,BNAI02Sop,BNAI02Top,BNAI02SuB, bnai02dif from bnai02  where bnai02dif='S' 
+May 02 16:28:39 ok_ 16 _ < BNAI02.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PDS/BNAI02.csv' 
+May 02 16:28:39 inf_ 17 _ < PD x cliente-operación Tarj.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/PD x cliente-operación Tarj.csv'
+ Query:
+Declare @FechaCorte date set @fechacorte='20230930'
+DECLARE @Atraso TABLE(Fecha DATE, Sucursal INT, Módulo INT, Cuenta INT, Operacion INT, Subop INT, Tipo_Oper INT, RI108Plazo INT)
+INSERT INTO @Atraso
+select ri108fec,ri108suc,ri108mod,ri108cta,ri108oper,ri108sbop, ri108tope, ri108plazo from fri108 where ri108fec=@fechacorte and ri108mod in (37)
+select scnom as 'Sucursal/Agencia', Sucursal, Módulo as Módulo, Tipo_Oper as Tipo_Oper, FSR008.PETDOC as TipoDoc,FSR008.PENDOC as NroDoc, Cuenta as Cuenta, case when Tipo_Oper=1 then 'Credencial' when Tipo_Oper=2
+then 'Mastercard' when Tipo_Oper=3 then 'Cautivas' when Tipo_Oper=4 then 'Cautivas' when Tipo_Oper=5 then 'Montemar' when Tipo_Oper=6 then 'Credencial' else '' end as Producto, Operacion as 
+Operación, Subop AS Subop, ri108plazo as Atraso, convert(float,sum (bcsdmn)) as DeudaTotal, CatCateg as CatResultante from fsh012 (nolock) inner join
+FSD212 on fsh012.BCCta = fsd212.catcta INNER JOIN
+FST001 ON SUCURS=BCSUC INNER JOIN
+FSR008 ON CTNRO=BCCTA inner JOIN -- ojo, quizás se corresponda en algún mes LEFT JOIN
+@Atraso a ON a.sucursal=bcsuc and a.cuenta=BCCTA AND a.Operacion=bcoper and a.Subop=bcsbop
+where BCEMP=1 AND bcfech=@fechacorte and (bcrubr in (select rubro from fsd014 where pcnivc in (37) AND Rubro NOT LIKE '7%' AND FSD014.Rubro NOT LIKE '3%') or
+bcrubr in (select rrrubr from fsr014 inner join
+fsd014 on fsr014.rubro=fsd014.rubro
+where pcnivc in (37) and rrcod in (1, 205, 206, 401, 495) AND FSD014.Rubro NOT LIKE '7%' AND FSD014.Rubro NOT LIKE '3%')) and bcsdmn<>0 and 
+CatFchDes=@fechacorte and CatCod=4 group by scnom,fsr008.petdoc,fsr008.pendoc,Cuenta,Operacion,Subop,ri108plazo,catcateg,Módulo,Tipo_Oper,Sucursal order by Cuenta 
+May 02 16:30:58 err_ 17 _ < PD x cliente-operación Tarj.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+May 02 16:30:58 inf_ 18 _ < PD x cliente-operación.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PDS/PD x cliente-operación.csv'
+ Query:
+Declare @FechaCorte date set @fechacorte='20230930'
+
+DECLARE @Atraso TABLE(Fecha DATE, Sucursal INT, Módulo INT, Cuenta INT, Operacion INT, Subop INT, Tipo_Oper INT, RI108Plazo INT)
+
+INSERT INTO @Atraso
+
+select ri108fec,ri108suc,ri108mod,ri108cta,ri108oper,ri108sbop, ri108tope, ri108plazo from fri108 where ri108fec=@fechacorte and ri108mod in (101,102,103,104,71)
+
+select scnom as 'Sucursal/Agencia', Sucursal, Módulo as Módulo, Tipo_Oper as Tipo_Oper, FSR008.PETDOC as TipoDoc,FSR008.PENDOC as NroDoc, Cuenta as Cuenta, case when Módulo=101 then 'Hipotecario' when Módulo=102 
+then 'Prendario' when Módulo=104 then 'Microemp.' when Módulo=103 then 'Personal' when Módulo=71 then 'Documento' else '' end as Producto, Operacion as 
+Operación, Subop AS Subop, ri108plazo as Atraso, convert(float,sum (bcsdmn)) as DeudaTotal, CatCateg as CatResultante from fsh012 (nolock) inner join
+FSD212 on fsh012.BCCta = fsd212.catcta INNER JOIN
+FST001 ON SUCURS=BCSUC INNER JOIN
+FSR008 ON CTNRO=BCCTA inner JOIN -- ojo, quizás se corresponda en algún mes LEFT JOIN
+@Atraso a ON a.sucursal=bcsuc and a.cuenta=BCCTA AND a.Operacion=bcoper and a.Subop=bcsbop
+where BCEMP=1 AND bcfech=@fechacorte and (bcrubr in (select rubro from fsd014 where pcnivc in (71,101,102,103,104) AND Rubro NOT LIKE '7%' AND FSD014.Rubro NOT LIKE '3%') or
+bcrubr in (select rrrubr from fsr014 inner join
+fsd014 on fsr014.rubro=fsd014.rubro
+where pcnivc in (71,101,102,103,104) and rrcod in (1, 205, 206, 401, 495) AND FSD014.Rubro NOT LIKE '7%' AND FSD014.Rubro NOT LIKE '3%')) and bcsdmn<>0 and 
+CatFchDes=@fechacorte and CatCod=4 group by scnom,fsr008.petdoc,fsr008.pendoc,Cuenta,Operacion,Subop,ri108plazo,catcateg,Módulo,Tipo_Oper,Sucursal order by Cuenta 
+May 02 16:31:44 err_ 18 _ < PD x cliente-operación.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+May 02 16:31:44 inf_ 19 _ < flujos consumos.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/flujos consumos.csv'
+ Query:
+__GARRIGA__ 
+May 02 16:31:44 err_ 19 _ < flujos consumos.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:31:44 inf_ 20 _ < FSE900-ENVEJ.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/FSE900-ENVEJ.csv'
+ Query:
+select * from fse900 where fse900mar='envej' and fse900fc2='1753-01-01 00:00:00.000' 
+May 02 16:31:57 ok_ 20 _ < FSE900-ENVEJ.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/LGD_prest/FSE900-ENVEJ.csv' 
+May 02 16:31:57 inf_ 21 _ < deudaAÑO.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/deudaAÑO.csv'
+ Query:
+__GARRIGA__ 
+May 02 16:31:57 err_ 21 _ < deudaAÑO.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:31:57 inf_ 22 _ < TCR histórico.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/TCR histórico.csv'
+ Query:
+__GARRIGA__ 
+May 02 16:31:57 err_ 22 _ < TCR histórico.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:31:57 inf_ 23 _ < BASE histórica (-12m).csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/BASE histórica (-12m).csv'
+ Query:
+select distinct fsd010.Pgcod,Aomod,Aosuc,Aomda,Aopap,Aocta,Aooper,Aosbop,Aotope,Aofval,convert(datetime,Aofvto,121) as Aofvto,convert(float,Aopzo) as Aopzo,Aottas,convert(float,Aotasa) as Aotasa,Aotmor,convert(float,Aottac) as Aottac,Aotasc,Aotdia,Aotvto,Aotano,Aotint,Aodrev,convert(float,Aoimp) as Aoimp,Aopre,Aopre1,convert(float,Aotcbi) as Aotcbi,Aotcbi1,Aoarb,Aoarb1,Aomd,Aomd1,Aonume,Aofnum,Aoafiv,Aocbcu,Aostat,Aoavis,Aoplus,Aoeven,convert(datetime,Aofe99,121) as Aofe99,Aocltcod,Aoperiod from fsd010 
+inner join fsd601 on ppcta=aocta and ppoper=aooper and ppsbop=aosbop and ppsuc=aosuc
+where aomod in (101,102,103,104) and aofval between '20140501' and '20240331' 
+May 02 16:32:14 ok_ 23 _ < BASE histórica (-12m).csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/LGD_prest/BASE histórica (-12m).csv' 
+May 02 16:32:14 inf_ 24 _ < Cant cuotas por oper.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/Cant cuotas por oper.csv'
+ Query:
+select ppcta,ppoper,ppsbop, count(*) as CantCuotas from fsd601 (nolock) where pgcod=1 and ppmod in (101,102,103,104) and fsd601.d601co='S'
+group by ppcta,ppoper,ppsbop 
+May 02 16:32:18 ok_ 24 _ < Cant cuotas por oper.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/LGD_prest/Cant cuotas por oper.csv' 
+May 02 16:32:18 inf_ 25 _ < Historia atraso refinanciacione.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/Historia atraso refinanciacione.csv'
+ Query:
+DECLARE @refinanciadas TABLE(Cuenta INT, Operacion INT)
+INSERT INTO @refinanciadas
+select r1cta, r1oper from fsr011 where r1mod in (101,102,103,104) and relcod in (500,650) and r011fc<='20250331'
+
+select distinct RI108Emp,RI108Suc,RI108Mod,RI108Rub,RI108Mda,RI108Pap,RI108Cta,RI108Oper,RI108Sbop,RI108Tope,convert(datetime,RI108Fec,121) as RI108Fec,RI108Tip,RI108Arb,RI108ImpO,RI108ImpA,RI108CGar,RI108SGar,RI108ImpD,RI108FecV,RI108EsVen,
+convert(float,RI108Plazo) as Ri108plazo,RI108Refin,RI108FecR,RI108Cod2,RI108NumO,RI108Cato,RI108CodS,RI108NumS,RI108CatS,RI108Cod3,RI108Num3,RI108Cat3,RI108Cod4,RI108Num4,RI108Cat4,RI108CodR,RI108NumR,RI108CatR,RI108CodP,
+RI108NumP,RI108CatP,RI108CodE,RI108NumE,RI108CatE,RI108CodSE,RI108NumSE,RI108CatSE,RI108CodG,RI108NumG,RI108CatG,RI108CAu1,RI108Num1,RI108Aux1,RI108CAu2,RI108NAu2,RI108Aux2,RI108CAu3,RI108NAu3,
+RI108Aux3,RI108Porc,convert(datetime,RI108Prev,121) as Ri108Prev,RI108Aju,RI108A101,RI108A102,RI108A103,RI108A104,RI108A105,RI108A106,RI108A107,RI108A108,RI108A109,RI108A110,RI108A111,RI108A112,RI108Id,RI108Anu,RI108Adm,RI108NrEL,
+RI108Tran,RI108aMod,RI108PreAn,RI108cge,RI108cgd,RI108cgc,RI108cgb,RI108cga,RI108RubP,RI108Pri
+from fri108
+inner join @refinanciadas on Cuenta=ri108cta and Operacion=ri108oper
+where ri108emp=1 and ri108fec<='20250331' and ri108mod in (101,102,103,104)
+order by ri108cta,ri108oper,ri108fec 
+May 02 16:32:50 err_ 25 _ < Historia atraso refinanciacione.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+May 02 16:32:50 inf_ 26 _ < Historia atraso refinanciadas.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/Historia atraso refinanciadas.csv'
+ Query:
+DECLARE @refinanciadas TABLE(Cuenta INT, Operacion INT)
+INSERT INTO @refinanciadas
+select r2cta, r2oper from fsr011 where r2mod in (101,102,103,104) and relcod in (500,650) and r011fc<='20250331'
+
+select RI108Emp,RI108Suc,RI108Mod,RI108Rub,RI108Mda,RI108Pap,RI108Cta,RI108Oper,RI108Sbop,RI108Tope,convert(datetime,RI108Fec,121) as RI108fec,RI108Tip,RI108Arb,RI108ImpO,RI108ImpA,RI108CGar,RI108SGar,RI108ImpD,RI108FecV,RI108EsVen,
+convert(float,RI108Plazo) as Ri108plazo,RI108Refin,RI108FecR,RI108Cod2,RI108NumO,RI108Cato,RI108CodS,RI108NumS,RI108CatS,RI108Cod3,RI108Num3,RI108Cat3,RI108Cod4,RI108Num4,RI108Cat4,RI108CodR,RI108NumR,RI108CatR,RI108CodP,
+RI108NumP,RI108CatP,RI108CodE,RI108NumE,RI108CatE,RI108CodSE,RI108NumSE,RI108CatSE,RI108CodG,RI108NumG,RI108CatG,RI108CAu1,RI108Num1,RI108Aux1,RI108CAu2,RI108NAu2,RI108Aux2,RI108CAu3,RI108NAu3,
+RI108Aux3,RI108Porc,RI108Prev,RI108Aju,RI108A101,RI108A102,RI108A103,RI108A104,RI108A105,RI108A106,RI108A107,RI108A108,RI108A109,RI108A110,RI108A111,RI108A112,RI108Id,RI108Anu,RI108Adm,RI108NrEL,
+RI108Tran,RI108aMod,RI108PreAn,RI108cge,RI108cgd,RI108cgc,RI108cgb,RI108cga,RI108RubP,RI108Pri
+from fri108
+inner join @refinanciadas on Cuenta=ri108cta and Operacion=ri108oper
+where ri108emp=1 and ri108fec<='20230930' and ri108mod in (101,102,103,104)
+
+EXCEPT 
+
+select RI108Emp,RI108Suc,RI108Mod,RI108Rub,RI108Mda,RI108Pap,RI108Cta,RI108Oper,RI108Sbop,RI108Tope,RI108Fec,RI108Tip,RI108Arb,RI108ImpO,RI108ImpA,RI108CGar,RI108SGar,RI108ImpD,RI108FecV,RI108EsVen,
+RI108Plazo,RI108Refin,RI108FecR,RI108Cod2,RI108NumO,RI108Cato,RI108CodS,RI108NumS,RI108CatS,RI108Cod3,RI108Num3,RI108Cat3,RI108Cod4,RI108Num4,RI108Cat4,RI108CodR,RI108NumR,RI108CatR,RI108CodP,
+RI108NumP,RI108CatP,RI108CodE,RI108NumE,RI108CatE,RI108CodSE,RI108NumSE,RI108CatSE,RI108CodG,RI108NumG,RI108CatG,RI108CAu1,RI108Num1,RI108Aux1,RI108CAu2,RI108NAu2,RI108Aux2,RI108CAu3,RI108NAu3,
+RI108Aux3,RI108Porc,RI108Prev,RI108Aju,RI108A101,RI108A102,RI108A103,RI108A104,RI108A105,RI108A106,RI108A107,RI108A108,RI108A109,RI108A110,RI108A111,RI108A112,RI108Id,RI108Anu,RI108Adm,RI108NrEL,
+RI108Tran,RI108aMod,RI108PreAn,RI108cge,RI108cgd,RI108cgc,RI108cgb,RI108cga,RI108RubP,RI108Pri
+from fri108
+inner join @refinanciadas on Cuenta=ri108cta and Operacion=ri108oper
+where ri108emp=1 and ri108fec<='20230930' and ri108mod in (101,102,103,104)
+and ri108cta in (135862,125192,147267,151746,162115,284761,358940,320506,343705,343705,347474,360061,360061,399768,368237,378700,169081,313379,313379,343799,374484)
+and ri108oper in (80325,122298,96717,82660,96281,12036,95617,14282,52238,67778,67846,84826,91430,121908,98773,113451,76518,7795,16164,63365,113485)
+order by ri108cta,ri108oper,ri108fec 
+May 02 16:32:56 err_ 26 _ < Historia atraso refinanciadas.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+May 02 16:32:56 inf_ 27 _ < LGD.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/LGD.csv'
+ Query:
+declare @fecha_corte date set @fecha_corte='20250331'
+
+DECLARE @FRI108_DEFAULT TABLE(pgcod INT, MOD INT, CTA INT, OPER INT, SUBOP INT, FRI108_FEC DATE)
+INSERT INTO @FRI108_DEFAULT
+select distinct fri108.ri108emp,aomod,aocta,aooper,aosbop,convert(date,min(RI108FEC),103) as FRI108_FEC from FRI108 inner join
+fsd010 on RI108CTA=aocta AND RI108OPER=AOOPER AND RI108TOPE=AOTOPE AND RI108MOD=AOMOD AND RI108SUC=AOSUC AND RI108SBOP=AOSBOP
+where ri108fec<=@fecha_corte and aomod in (101,102,103,104)
+AND RI108PLAZO>90 and RI108Rub like '1%'
+--and RI108FEC BETWEEN aofval and aofvto
+group by FRI108.RI108EMP,aomod,aocta,aooper,aosbop
+order by aocta,aooper,aosbop,FRI108_FEC
+
+select distinct convert(datetime,@fecha_corte,121) as Fecha_Corte,aosuc,aomod,aocta,aooper,aosbop,convert(float,aotasa) as Aotasa,convert(datetime,aofval,121) as aofval,
+convert(datetime,aofvto,121) as aofvto,convert(float,aoimp) as aoimp,convert(datetime,a.FRI108_FEC,121) as catfchdes,case when aostat=99 then convert(datetime,aofe99,121) else '19000101' end as aofe99 from fsd010 inner join
+@FRI108_DEFAULT a on a.cta=aocta and a.oper=aooper and a.subop=aosbop and a.mod=aomod where 
+aomod in (101,102,103,104) and aofval<=@fecha_corte and aofval>'20140430' /*and (aostat<>99 or aofe99>@fecha_corte)*/ and aofvto<=@fecha_corte
+and a.FRI108_FEC<=@fecha_corte --and a.FRI108_FEC between aofval and (case when aostat<>99 then aofvto when aofvto<=aofe99 then aofvto else aofe99 end)
+and aotope<>0 
+May 02 16:33:01 err_ 27 _ < LGD.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+May 02 16:33:01 inf_ 28 _ < Pun fin derl.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/Pun fin derl.csv'
+ Query:
+__GARRIGA__ 
+May 02 16:33:02 err_ 28 _ < Pun fin derl.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:33:02 inf_ 29 _ < Pun fin izql.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_prest/Pun fin izql.csv'
+ Query:
+__GARRIGA__ 
+May 02 16:33:02 err_ 29 _ < Pun fin izql.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:33:02 inf_ 30 _ < Operaciones con default.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/Coef_PD/Operaciones con default.csv'
+ Query:
+select ri108emp as pgcod,ri108mod as MOD,ri108cta as CTA,ri108oper as OPER,RI108Sbop as SUBOP,convert(datetime,min(ri108fec),121) as FRI108_fec 
+from fri108 where  ri108plazo>90 and ri108mod in (101,102,103,104) and ri108fec<='20250331'
+group by ri108emp,ri108mod,ri108cta,ri108oper,RI108Sbop 
+May 02 16:33:04 ok_ 30 _ < Operaciones con default.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/Coef_PD/Operaciones con default.csv' 
+May 02 16:33:04 inf_ 31 _ < Reestruct BCRA.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/Coef_EAD/Reestruct BCRA.csv'
+ Query:
+__COBOL__ 
+May 02 16:33:04 err_ 31 _ < Reestruct BCRA.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:33:04 inf_ 32 _ < CNA.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/EAD_stage/CNA.csv'
+ Query:
+select bccta,bcoper,convert(float,sum(bcsdmn)) as CobroNoAplicado from fsh012 
+where bcemp=1 and bcfech='20250331' and (bcrubr like '131792%' or bcrubr like '141192%') and bcsdmn<>0
+group by bccta,bcoper 
+May 02 16:33:06 ok_ 32 _ < CNA.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/EAD_stage/CNA.csv' 
+May 02 16:33:06 inf_ 33 _ < FRI108 Atraso cliente.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/EAD_stage/FRI108 Atraso cliente.csv'
+ Query:
+select RI108Emp,RI108Suc,RI108Mod,RI108Rub,RI108Mda,RI108Pap,RI108Cta,RI108Oper,RI108Sbop,RI108Tope,RI108Fec,RI108Tip,RI108Arb,RI108ImpO,RI108ImpA,RI108CGar,RI108SGar,RI108ImpD,RI108FecV,RI108EsVen,convert(float,RI108Plazo),RI108Refin,RI108FecR,RI108Cod2,RI108NumO,RI108Cato,RI108CodS,RI108NumS,RI108CatS,RI108Cod3,RI108Num3,RI108Cat3,RI108Cod4,RI108Num4,RI108Cat4,RI108CodR,RI108NumR,RI108CatR,RI108CodP,RI108NumP,RI108CatP,RI108CodE,RI108NumE,RI108CatE,RI108CodSE,RI108NumSE,RI108CatSE,RI108CodG,RI108NumG,RI108CatG,RI108CAu1,RI108Num1,RI108Aux1,RI108CAu2,RI108NAu2,RI108Aux2,RI108CAu3,RI108NAu3,RI108Aux3,RI108Porc,RI108Prev,RI108Aju,RI108A101,RI108A102,RI108A103,RI108A104,RI108A105,RI108A106,RI108A107,RI108A108,RI108A109,RI108A110,RI108A111,RI108A112,RI108Id,RI108Anu,RI108Adm,RI108NrEL,RI108Tran,RI108aMod,RI108PreAn,RI108cge,RI108cgd,RI108cgc,RI108cgb,RI108cga,RI108RubP,RI108Pri from fri108 (nolock) where ri108emp=1 and ri108fec='20250331' and ri108mod in (71,101,102,103,104,37) 
+May 02 16:33:26 ok_ 33 _ < FRI108 Atraso cliente.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/EAD_stage/FRI108 Atraso cliente.csv' 
+May 02 16:33:26 inf_ 34 _ < Saldos_no_utilizados_TC.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/EAD_stage/Saldos_no_utilizados_TC.csv'
+ Query:
+select bcsuc,bcrubr,bcmda,bcpap,bccta,bcoper,bcsbop,bctop,convert(float,bcsdmn) as bcsdmn from fsh012 (nolock) where bcemp=1 and bcrubr in (711083521,711083551) and bcfech='20250331' 
+May 02 16:33:27 ok_ 34 _ < Saldos_no_utilizados_TC.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/EAD_stage/Saldos_no_utilizados_TC.csv' 
+May 02 16:33:27 inf_ 35 _ < Hoja total deuda info prev.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/EAD_stage/Hoja total deuda info prev.csv'
+ Query:
+___GARRIGA___ 
+May 02 16:33:27 err_ 35 _ < Hoja total deuda info prev.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:33:27 inf_ 36 _ < cant cuotas pagadas por oper.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PCE_prest/cant cuotas pagadas por oper.csv'
+ Query:
+select ppcta,ppoper,ppsbop, count(*) as CantCuotas from fsd602 (nolock) where pgcod=1 and pp1stat='T' and ppmod in (101,102,103,104) and pp1fech<='20250331' and d602co='S'
+group by ppcta,ppoper,ppsbop 
+May 02 16:33:30 ok_ 36 _ < cant cuotas pagadas por oper.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PCE_prest/cant cuotas pagadas por oper.csv' 
+May 02 16:33:30 inf_ 37 _ < Categoria.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/PCE_tarj/Categoria.csv'
+ Query:
+select * from fsd212 where catcod=4 and catfchdes='20250331' 
+May 02 16:33:44 ok_ 37 _ < Categoria.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/PCE_tarj/Categoria.csv' 
+May 02 16:33:44 inf_  DB_ Conectando con: 172.16.1.12\MZ12 Mastercard...
+May 02 16:33:44 ok_ > DB_ Conexión con 172.16.1.12\MZ12 Mastercard ESTABLECIDA! (2 _ * 172.16.1.12\MZ12 Mastercard *)
+May 02 16:33:44 inf_ Iniciando procesamiento de queries a 172.16.1.12\MZ12 Mastercard - 3 queries
+May 02 16:33:44 inf_ 38 _ < consum_mst1.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/consum_mst1.csv'
+ Query:
+select 
+TipoRegistro, NroTarjeta, Entidad, Sucursal, NroCuenta, TipoSocio, DigitoVerific, GrupoCtaCte, NroComercio, NombreDelComercio, RamoComercio, CodMovimiento, NroCaja, NroTerminal,
+NroLote, NroCupon, CantCuotas, CuotaVigente, MotContrapartida, CargoPorServicio, ConceptoAjuste, convert(datetime,FechaOperacion,121) as FechaOperacion, convert(datetime,FechaClearing,121) as FechaClearing, convert(datetime,FechaCtaCte,121) as FechaCtaCte, CodMoneda, CodMonedaOrigen, convert(float,IMonedaOrigen) as IMonedaOrigen,
+convert(float,Itotal) as Itotal, convert(float,ISinDescto) as ISinDescto, convert(float,Ifinal) as Ifinal, TipoAjuste, AfectaSaldo,Aplicacion, convert(float,CprasMesAnt) as CprasMesAnt, TipoMovimiento, McaDebitoCredito
+from mastercard..OpSocios where fechaOperacion>='20161001' and fechaOperacion<='20250331' and nrocuenta<=1500000 order by nrocuenta,FechaOperacion 
+May 02 16:35:15 ok_ 38 _ < consum_mst1.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/LGD_tarj/consum_mst1.csv' 
+May 02 16:35:15 inf_ 39 _ < jmtcc027.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/jmtcc027.csv'
+ Query:
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from  jmt_cc027D where cod_concepto in (9100,9300,9900,9930,10000,10400) and anio=2016 and mes in (10,11,12) union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from  jmt_cc027D where cod_concepto in (9100,9300,9900,9930,10000,10400) and anio>=2017 and anio<=2022 
+union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from  jmt_cc027D where cod_concepto in (9100,9300,9900,9930,10000,10400) and anio=2023 and mes in (1,2,3,4,5,6,7,8,9,10,11,12)
+order by num_cta_socio,anio,mes 
+May 02 16:35:28 ok_ 39 _ < jmtcc027.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/LGD_tarj/jmtcc027.csv' 
+May 02 16:35:28 inf_ 40 _ < pago_mst1.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/pago_mst1.csv'
+ Query:
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio=2016 and mes in (10,11,12) and cod_concepto in (16100) and nombre_archivo <>'temsmasg11.201911' union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio=2016 and mes in (10,11,12) and cod_concepto in (3100) and nombre_archivo <>'temsmasg11.201911' and importe_pesos<=0 union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio>=2017 and anio<=2022 and cod_concepto in (16100) and nombre_archivo <>'temsmasg11.201911' union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio>=2017 and anio<=2022 and cod_concepto in (3100) and nombre_archivo <>'temsmasg11.201911' and importe_pesos<=0 union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio=2023 and mes in (1,2,3,4,5,6,7,8,9,10,11,12) and cod_concepto in (16100) and nombre_archivo <>'temsmasg11.201911' union
+select ANIO,MES,TIPO_REGISTRO,SUCURSAL,NUM_CTA_SOCIO,COD_CONCEPTO,CANTIDAD_PESOS,convert(float,IMPORTE_PESOS) as IMPORTE_PESOS,CANTIDAD_DOLAR,convert(float,IMPORTE_DOLAR) as IMPORTE_DOLAR,Nombre_Archivo from mastercard..JMT_CC027D where anio=2023 and mes in (1,2,3,4,5,6,7,8,9,10,11,12) and cod_concepto in (3100) and nombre_archivo <>'temsmasg11.201911' and importe_pesos<=0 
+May 02 16:35:33 ok_ 40 _ < pago_mst1.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/LGD_tarj/pago_mst1.csv' 
+May 02 16:35:33 inf_  DB_ Conectando con: 172.16.1.12\MZ12 MPS_Cautivas...
+May 02 16:35:33 ok_ > DB_ Conexión con 172.16.1.12\MZ12 MPS_Cautivas ESTABLECIDA! (3 _ * 172.16.1.12\MZ12 MPS_Cautivas *)
+May 02 16:35:33 inf_ Iniciando procesamiento de queries a 172.16.1.12\MZ12 MPS_Cautivas - 6 queries
+May 02 16:35:33 inf_ 41 _ < consum_mtm1.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/consum_mtm1.csv'
+ Query:
+DECLARE @Fecha_corte date set @Fecha_corte='20250331'
+DECLARE @Tabla TABLE(cta_bto INT,tip_tar varchar(10),nro_cta INT,fec_com datetime,fec_vto datetime,nro_cup int,ctd_cuo int,cod_mov int,imp_cuo decimal(18,2))
+INSERT INTO @Tabla
+select cta_bto,tip_tar,nro_cta,fec_com,fec_vto,nro_cup,ctd_cuo,cod_mov,convert(float,(imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10
+where fec_com between '20180101' and @Fecha_corte and cod_mov in (53,55) 
+and nro_cta<=27000
+DECLARE @Tabla2 TABLE(cta_bto INT,tip_tar varchar(10),nro_cta INT,fec_vto datetime,nro_cup int,ctd_cuo int,cod_mov int,imp_cuo decimal(18,2))
+INSERT INTO @Tabla2
+select distinct a.cta_bto,a.tip_tar,a.nro_cta,a.fec_vto-15,a.nro_cup,a.ctd_cuo,a.cod_mov,convert(float,a.imp_cuo) as Importe from mps_cautivas..movtrjpro_2016_10 a
+inner join @Tabla b on a.cta_bto=b.cta_bto and a.nro_cta=b.nro_cta and a.fec_com=b.fec_com and a.nro_cup=b.nro_cup and a.ctd_cuo=b.ctd_cuo --and a.tip_tar=b.tip_tar
+where a.fec_com between '20180101' and @Fecha_corte and a.cod_mov in (71) 
+and a.nro_cta<=27000
+DECLARE @Tabla3 TABLE(cta_bto INT,tip_tar varchar(10),nro_cta INT,fec_vto datetime,fec_com datetime,nro_cup int,ctd_cuo int,cod_mov int,imp_cuo decimal(18,2))
+INSERT INTO @Tabla3
+select distinct d.cta_bto,d.tip_tar,d.nro_cta,d.fec_vto,d.fec_com,d.nro_cup,d.ctd_cuo,d.cod_mov,convert(float,sum(d.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 d
+inner join @Tabla2 c on c.cta_bto=d.cta_bto and c.nro_cta=d.nro_cta and c.fec_vto=d.fec_vto and c.nro_cup=d.nro_cup and c.ctd_cuo=d.ctd_cuo --and c.tip_tar=d.tip_tar
+where d.fec_com between '20180101' and @Fecha_corte and d.cod_mov in (21) 
+and d.nro_cta<=27000
+group by d.cta_bto,d.tip_tar,d.nro_cta,d.fec_vto,d.fec_com,d.nro_cup,d.ctd_cuo,d.cod_mov
+DECLARE @Tabla4 TABLE(cta_bto INT,tip_tar varchar(10),nro_cta INT,fec_com datetime,nro_cup int,ctd_cuo int,cod_mov int,imp_cuo decimal(18,2))
+INSERT INTO @Tabla4
+select distinct a.cta_bto,a.tip_tar,a.nro_cta,a.fec_com,a.nro_cup,a.ctd_cuo,a.cod_mov,convert(float,sum(a.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 a
+inner join @Tabla m on a.cta_bto=m.cta_bto and a.nro_cta=m.nro_cta and a.fec_com=m.fec_com and a.fec_vto=m.fec_vto and a.nro_cup=m.nro_cup and a.ctd_cuo=m.ctd_cuo --and a.tip_tar=b.tip_tar
+where a.fec_com between '20180101' and @Fecha_corte and a.cod_mov in (71) 
+and a.nro_cta<=27000
+group by a.cta_bto,a.tip_tar,a.nro_cta,a.fec_com,a.nro_cup,a.ctd_cuo,a.cod_mov
+--
+select distinct d.cta_bto,d.tip_tar,d.nro_cta,d.fec_com,d.nro_cup,d.ctd_cuo,d.cod_mov,convert(float,d.imp_cuo) as Importe from mps_cautivas..movtrjpro_2016_10 d
+inner join @Tabla2 c on c.cta_bto=d.cta_bto and c.nro_cta=d.nro_cta and c.fec_vto=d.fec_vto and c.nro_cup=d.nro_cup and c.ctd_cuo=d.ctd_cuo --and c.tip_tar=d.tip_tar
+where d.fec_com between '20180101' and @Fecha_corte and d.cod_mov in (21) 
+and d.nro_cta<=27000
+UNION
+select distinct e.cta_bto,e.tip_tar,e.nro_cta,e.fec_vto,e.nro_cup,e.ctd_cuo,e.cod_mov,convert(float,e.imp_cuo) as Importe from @Tabla2 e
+UNION
+select cta_bto,tip_tar COLLATE Latin1_General_CI_AS ,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov,convert(float,sum(imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10
+where fec_com between '20180101' and @Fecha_corte and cod_mov in (51,52,53,54,56,57,59,60,65,68,71,73,78,79,83,87,90,92,4,6,21,22,25,26,28,29,40)
+and nro_cta<=27000
+group by cta_bto,tip_tar,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov
+union 
+select cta_bto,tip_tar COLLATE Latin1_General_CI_AS,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov,convert(float,sum(imp_cuo))  from mps_cautivas..movtrjpro_2016_10
+where fec_com between '20180101' and @Fecha_corte and cod_mov in (55) and nro_cup not in (35202000,36202000,55000070,55209900) and nro_cup>=55000000
+and nro_cta<=27000
+group by cta_bto,tip_tar,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov
+except
+select g.cta_bto,g.tip_tar COLLATE Latin1_General_CI_AS ,g.nro_cta,g.fec_com,g.nro_cup,g.ctd_cuo,g.cod_mov,convert(float,sum(g.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 g
+inner join @Tabla2 h on g.cta_bto=h.cta_bto and g.nro_cta=h.nro_cta and g.fec_vto=h.fec_vto and g.nro_cup=h.nro_cup and g.ctd_cuo=h.ctd_cuo --and g.tip_tar=h.tip_tar
+where fec_com between '20180101' and @Fecha_corte and g.cod_mov in (71)
+and g.nro_cta<=27000
+group by g.cta_bto,g.tip_tar,g.nro_cta,g.fec_com,g.nro_cup,g.ctd_cuo,g.cod_mov
+except
+select i.cta_bto,i.tip_tar COLLATE Latin1_General_CI_AS ,i.nro_cta,i.fec_com,i.nro_cup,i.ctd_cuo,i.cod_mov,convert(float,sum(i.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 i
+inner join @Tabla3 j on i.cta_bto=j.cta_bto and i.nro_cta=j.nro_cta and i.fec_vto=j.fec_vto and i.fec_com=j.fec_com and i.nro_cup=j.nro_cup and i.ctd_cuo=j.ctd_cuo --and i.tip_tar=h.tip_tar
+where i.fec_com between '20180101' and @Fecha_corte and i.cod_mov in (21)
+and i.nro_cta<=27000
+group by i.cta_bto,i.tip_tar,i.nro_cta,i.fec_com,i.nro_cup,i.ctd_cuo,i.cod_mov
+except
+select i.cta_bto,i.tip_tar COLLATE Latin1_General_CI_AS ,i.nro_cta,i.fec_com,i.nro_cup,i.ctd_cuo,i.cod_mov,convert(float,sum(i.imp_cuo)) as Importe from mps_cautivas..movtrjpro_2016_10 i
+inner join @Tabla4 o on i.cta_bto=o.cta_bto and i.nro_cta=o.nro_cta and i.fec_com=o.fec_com and i.nro_cup=o.nro_cup and i.ctd_cuo=o.ctd_cuo --and i.tip_tar=h.tip_tar
+where i.fec_com between '20180101' and @Fecha_corte and i.cod_mov in (71)
+and i.nro_cta<=27000
+group by i.cta_bto,i.tip_tar,i.nro_cta,i.fec_com,i.nro_cup,i.ctd_cuo,i.cod_mov
+order by d.cta_bto,d.tip_tar,d.nro_cta,d.fec_com,d.nro_cup,d.ctd_cuo,d.cod_mov 
+May 02 16:38:09 err_ 41 _ < consum_mtm1.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+May 02 16:38:09 inf_ 42 _ < Cotizaciones BNA.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/Cotizaciones BNA.csv'
+ Query:
+__GARRIGA__ 
+May 02 16:38:09 err_ 42 _ < Cotizaciones BNA.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:38:09 inf_ 43 _ < Filtro previo consumos.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/Filtro previo consumos.csv'
+ Query:
+__GARRIGA__ 
+May 02 16:38:09 err_ 43 _ < Filtro previo consumos.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:38:09 inf_ 44 _ < Ultima_Fecha_Default_MC.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/Ultima_Fecha_Default_MC.csv'
+ Query:
+__GARRIGA__ 
+May 02 16:38:09 err_ 44 _ < Ultima_Fecha_Default_MC.csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:38:09 inf_ 45 _ < Ultima_Fecha_Default_PS..csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/Ultima_Fecha_Default_PS..csv'
+ Query:
+__GARRIGA__ 
+May 02 16:38:09 err_ 45 _ < Ultima_Fecha_Default_PS..csv >ERROR en 10.c! Query a la DB NO segura!
+May 02 16:38:09 inf_ 46 _ < pago_mtm1.csv > Iniciando armado archivo 'C:/MTM_PCE/CSVS_202503/LGD_tarj/pago_mtm1.csv'
+ Query:
+select cta_bto,tip_tar,nro_cta,convert(datetime,fec_com,121) as fec_com,nro_cup,ctd_cuo,cod_mov,convert(float,sum(imp_cuo)) as imp_cuo from mps_cautivas..movtrjpro_2016_10
+where fec_com between '20180101' and '20250331' and cod_mov in (1,98) and tip_tar='PS' and nro_cta<=57845
+group by cta_bto,tip_tar,nro_cta,fec_com,nro_cup,ctd_cuo,cod_mov
+order by nro_cta,fec_com 
+May 02 16:38:26 ok_ 46 _ < pago_mtm1.csv > Creado exitosamente 'C:/MTM_PCE/CSVS_202503/LGD_tarj/pago_mtm1.csv' 
+May 02 16:38:26 ok_ >ok_ Se renombró listas/CSVs_list_202503.xlsx a listas/CSVs_list_202503_202505021622_err.xlsx
+May 02 16:38:26 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list_202503.xlsx                      
+Archivo de LOGs           ->  logs/qacsv_202505021622.log                       
+Lista CSVs Renombrada     ->  listas/CSVs_list_202503_202505021622_err.xlsx     
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+           46                       26                       20            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+           46                       26                       20            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (20):
+   1 9 _ < ipcempalme ipim.csv >
+   2 10 _ < in tarjetas.csv >
+   3 13 _ < JMTYA10.csv >
+   4 17 _ < PD x cliente-operación Tarj.csv >
+   5 18 _ < PD x cliente-operación.csv >
+   6 19 _ < flujos consumos.csv >
+   7 21 _ < deudaAÑO.csv >
+   8 22 _ < TCR histórico.csv >
+   9 25 _ < Historia atraso refinanciacione.csv >
+   10 26 _ < Historia atraso refinanciadas.csv >
+   11 27 _ < LGD.csv >
+   12 28 _ < Pun fin derl.csv >
+   13 29 _ < Pun fin izql.csv >
+   14 31 _ < Reestruct BCRA.csv >
+   15 35 _ < Hoja total deuda info prev.csv >
+   16 41 _ < consum_mtm1.csv >
+   17 42 _ < Cotizaciones BNA.csv >
+   18 43 _ < Filtro previo consumos.csv >
+   19 44 _ < Ultima_Fecha_Default_MC.csv >
+   20 45 _ < Ultima_Fecha_Default_PS..csv >
+
+ - Lista de Errores de CSVs (20):
+   1 9 _ < ipcempalme ipim.csv >ERROR en 10.c! Query a la DB NO segura!
+   2 10 _ < in tarjetas.csv >ERROR en 10.c! Query a la DB NO segura!
+   3 13 _ < JMTYA10.csv >ERROR en 10.d! Falló  Query a la DB
+                NaTType does not support strftime
+   4 17 _ < PD x cliente-operación Tarj.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   5 18 _ < PD x cliente-operación.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   6 19 _ < flujos consumos.csv >ERROR en 10.c! Query a la DB NO segura!
+   7 21 _ < deudaAÑO.csv >ERROR en 10.c! Query a la DB NO segura!
+   8 22 _ < TCR histórico.csv >ERROR en 10.c! Query a la DB NO segura!
+   9 25 _ < Historia atraso refinanciacione.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   10 26 _ < Historia atraso refinanciadas.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   11 27 _ < LGD.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   12 28 _ < Pun fin derl.csv >ERROR en 10.c! Query a la DB NO segura!
+   13 29 _ < Pun fin izql.csv >ERROR en 10.c! Query a la DB NO segura!
+   14 31 _ < Reestruct BCRA.csv >ERROR en 10.c! Query a la DB NO segura!
+   15 35 _ < Hoja total deuda info prev.csv >ERROR en 10.c! Query a la DB NO segura!
+   16 41 _ < consum_mtm1.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   17 42 _ < Cotizaciones BNA.csv >ERROR en 10.c! Query a la DB NO segura!
+   18 43 _ < Filtro previo consumos.csv >ERROR en 10.c! Query a la DB NO segura!
+   19 44 _ < Ultima_Fecha_Default_MC.csv >ERROR en 10.c! Query a la DB NO segura!
+   20 45 _ < Ultima_Fecha_Default_PS..csv >ERROR en 10.c! Query a la DB NO segura!
+
+ - Lista de CSVs Creados (26):
+   1 1 _ < FSD002 1°parte.csv > - C:/MTM_PCE/CSVS_202503/PDS/FSD002 1°parte.csv
+   2 2 _ < FSD002 2°parte.csv > - C:/MTM_PCE/CSVS_202503/PDS/FSD002 2°parte.csv
+   3 3 _ < FSD010.csv > - C:/MTM_PCE/CSVS_202503/PDS/FSD010.csv
+   4 4 _ < FSD601.csv > - C:/MTM_PCE/CSVS_202503/PDS/FSD601.csv
+   5 5 _ < FSR011 refi.csv > - C:/MTM_PCE/CSVS_202503/PDS/FSR011 refi.csv
+   6 6 _ < FSR008.csv > - C:/MTM_PCE/CSVS_202503/PDS/FSR008.csv
+   7 7 _ < FSR011-gtías.csv > - C:/MTM_PCE/CSVS_202503/PDS/FSR011-gtías.csv
+   8 8 _ < Ingresos originales.csv > - C:/MTM_PCE/CSVS_202503/PDS/Ingresos originales.csv
+   9 11 _ < JMTI00.csv > - C:/MTM_PCE/CSVS_202503/PDS/JMTI00.csv
+   10 12 _ < JMTX041.csv > - C:/MTM_PCE/CSVS_202503/PDS/JMTX041.csv
+   11 14 _ < Base_pond_por_var_aux.csv > - C:/MTM_PCE/CSVS_202503/PDS/Base_pond_por_var_aux.csv
+   12 15 _ < Base_pond_por_variable.csv > - C:/MTM_PCE/CSVS_202503/PDS/Base_pond_por_variable.csv
+   13 16 _ < BNAI02.csv > - C:/MTM_PCE/CSVS_202503/PDS/BNAI02.csv
+   14 20 _ < FSE900-ENVEJ.csv > - C:/MTM_PCE/CSVS_202503/LGD_prest/FSE900-ENVEJ.csv
+   15 23 _ < BASE histórica (-12m).csv > - C:/MTM_PCE/CSVS_202503/LGD_prest/BASE histórica (-12m).csv
+   16 24 _ < Cant cuotas por oper.csv > - C:/MTM_PCE/CSVS_202503/LGD_prest/Cant cuotas por oper.csv
+   17 30 _ < Operaciones con default.csv > - C:/MTM_PCE/CSVS_202503/Coef_PD/Operaciones con default.csv
+   18 32 _ < CNA.csv > - C:/MTM_PCE/CSVS_202503/EAD_stage/CNA.csv
+   19 33 _ < FRI108 Atraso cliente.csv > - C:/MTM_PCE/CSVS_202503/EAD_stage/FRI108 Atraso cliente.csv
+   20 34 _ < Saldos_no_utilizados_TC.csv > - C:/MTM_PCE/CSVS_202503/EAD_stage/Saldos_no_utilizados_TC.csv
+   21 36 _ < cant cuotas pagadas por oper.csv > - C:/MTM_PCE/CSVS_202503/PCE_prest/cant cuotas pagadas por oper.csv
+   22 37 _ < Categoria.csv > - C:/MTM_PCE/CSVS_202503/PCE_tarj/Categoria.csv
+   23 38 _ < consum_mst1.csv > - C:/MTM_PCE/CSVS_202503/LGD_tarj/consum_mst1.csv
+   24 39 _ < jmtcc027.csv > - C:/MTM_PCE/CSVS_202503/LGD_tarj/jmtcc027.csv
+   25 40 _ < pago_mst1.csv > - C:/MTM_PCE/CSVS_202503/LGD_tarj/pago_mst1.csv
+   26 46 _ < pago_mtm1.csv > - C:/MTM_PCE/CSVS_202503/LGD_tarj/pago_mtm1.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (0):
+
+ - Lista de Errores de conexiones a DBs (0):
+
+ - Lista de DBs Conectadas (3):
+   1 1 _ * 172.31.119.50 Bantotal *
+   2 2 _ * 172.16.1.12\MZ12 Mastercard *
+   3 3 _ * 172.16.1.12\MZ12 MPS_Cautivas *
+
+

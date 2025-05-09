@@ -1,17 +1,10 @@
 ##################################################################
 title = '''Queries a CSVs'''
 ##################################################################
-
-'''
-author: jm  |  ene2024 - mar2025
-
-ver 1.4:
-    Add Datetime to Object convertion in order to show time
-    even if it's 0 with miliseconds (YYYY-MM-DD HH:MM:SS.mmm)
-
-ver 1.5:
-    Change csv output to utf-8 8 w/BOM instead only utf-8
-'''
+## author: jm - ene2024
+## version: 1.4:
+##  Add Datetime to Object convertion in order to show time
+##  even if it's 0 with miliseconds (YYYY-MM-DD HH:MM:SS.mmm)
 
 
 
@@ -85,7 +78,7 @@ class CSV:
         os.makedirs(self.path_folder)
 
     def wrt_csv_from_df(self, df, sep=';'):
-        df.to_csv(self.csvfn, sep=sep, encoding='utf-8-sig', index=False)
+        df.to_csv(self.csvfn, sep=sep, encoding='utf-8', index=False)
 
     def err_hndl(self, txtln):
         wrt_info(txtln, level='err_')

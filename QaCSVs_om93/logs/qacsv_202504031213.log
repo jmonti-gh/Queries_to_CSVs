@@ -1,0 +1,166 @@
+Apr 03 12:13:05 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list_LGD_prest.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202504031213.log
+Apr 03 12:13:05 ok_ > listas/CSVs_list_LGD_prest.xlsx leído correctamente:
+    Periodo    Carpeta Nombre archivo CSV             Server Base
+0  202502.0  LGD_prest       FSE900-ENVEJ  172.31.119.50 Bantotal
+1       NaN        NaN           deudaAÑO                     NaN
+2       NaN        NaN      TCR histórico                     NaN
+Apr 03 12:13:05 ok_ > Fecha leída, Periodo: 202502.- Calculados; Fecha de corte: '20250228',
+            Corte del mismo mes del año anterior: '20240229' 
+Apr 03 12:13:05 inf_ Conexiones a DB a establecer:
+ ['172.31.119.50 Bantotal']
+Apr 03 12:13:05 inf_  DB_ Conectando con: 172.31.119.50 Bantotal...
+Apr 03 12:13:05 ok_ > DB_ Conexión con 172.31.119.50 Bantotal ESTABLECIDA! (1 _ * 172.31.119.50 Bantotal *)
+Apr 03 12:13:05 inf_ Iniciando procesamiento de queries a 172.31.119.50 Bantotal - 10 queries
+Apr 03 12:13:05 inf_ 1 _ < FSE900-ENVEJ.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/FSE900-ENVEJ.csv'
+ Query:
+select * from fse900 where fse900mar='envej' and fse900fc2='1753-01-01 00:00:00.000' 
+Apr 03 12:13:19 ok_ 1 _ < FSE900-ENVEJ.csv > Creado exitosamente 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/FSE900-ENVEJ.csv' 
+Apr 03 12:13:19 inf_ 2 _ < deudaAÑO.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/deudaAÑO.csv'
+ Query:
+__GARRIGA__ 
+Apr 03 12:13:19 err_ 2 _ < deudaAÑO.csv >ERROR en 10.c! Query a la DB NO segura!
+Apr 03 12:13:19 inf_ 3 _ < TCR histórico.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/TCR histórico.csv'
+ Query:
+__GARRIGA__ 
+Apr 03 12:13:19 err_ 3 _ < TCR histórico.csv >ERROR en 10.c! Query a la DB NO segura!
+Apr 03 12:13:19 inf_ 4 _ < BASE histórica (-12m).csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/BASE histórica (-12m).csv'
+ Query:
+select distinct fsd010.Pgcod,Aomod,Aosuc,Aomda,Aopap,Aocta,Aooper,Aosbop,Aotope,Aofval,convert(datetime,Aofvto,121) as Aofvto,convert(float,Aopzo) as Aopzo,Aottas,convert(float,Aotasa) as Aotasa,Aotmor,convert(float,Aottac) as Aottac,Aotasc,Aotdia,Aotvto,Aotano,Aotint,Aodrev,convert(float,Aoimp) as Aoimp,Aopre,Aopre1,convert(float,Aotcbi) as Aotcbi,Aotcbi1,Aoarb,Aoarb1,Aomd,Aomd1,Aonume,Aofnum,Aoafiv,Aocbcu,Aostat,Aoavis,Aoplus,Aoeven,convert(datetime,Aofe99,121) as Aofe99,Aocltcod,Aoperiod from fsd010 
+inner join fsd601 on ppcta=aocta and ppoper=aooper and ppsbop=aosbop and ppsuc=aosuc
+where aomod in (101,102,103,104) and aofval between '20140501' and '20240229' 
+Apr 03 12:14:31 ok_ 4 _ < BASE histórica (-12m).csv > Creado exitosamente 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/BASE histórica (-12m).csv' 
+Apr 03 12:14:31 inf_ 5 _ < Cant cuotas por oper.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/Cant cuotas por oper.csv'
+ Query:
+select ppcta,ppoper,ppsbop, count(*) as CantCuotas from fsd601 (nolock) where pgcod=1 and ppmod in (101,102,103,104) and fsd601.d601co='S'
+group by ppcta,ppoper,ppsbop 
+Apr 03 12:14:49 ok_ 5 _ < Cant cuotas por oper.csv > Creado exitosamente 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/Cant cuotas por oper.csv' 
+Apr 03 12:14:49 inf_ 6 _ < Historia atraso refinanciacione.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/Historia atraso refinanciacione.csv'
+ Query:
+DECLARE @refinanciadas TABLE(Cuenta INT, Operacion INT)
+INSERT INTO @refinanciadas
+select r1cta, r1oper from fsr011 where r1mod in (101,102,103,104) and relcod in (500,650) and r011fc<='20250228'
+
+select distinct RI108Emp,RI108Suc,RI108Mod,RI108Rub,RI108Mda,RI108Pap,RI108Cta,RI108Oper,RI108Sbop,RI108Tope,convert(datetime,RI108Fec,121) as RI108Fec,RI108Tip,RI108Arb,RI108ImpO,RI108ImpA,RI108CGar,RI108SGar,RI108ImpD,RI108FecV,RI108EsVen,
+convert(float,RI108Plazo) as Ri108plazo,RI108Refin,RI108FecR,RI108Cod2,RI108NumO,RI108Cato,RI108CodS,RI108NumS,RI108CatS,RI108Cod3,RI108Num3,RI108Cat3,RI108Cod4,RI108Num4,RI108Cat4,RI108CodR,RI108NumR,RI108CatR,RI108CodP,
+RI108NumP,RI108CatP,RI108CodE,RI108NumE,RI108CatE,RI108CodSE,RI108NumSE,RI108CatSE,RI108CodG,RI108NumG,RI108CatG,RI108CAu1,RI108Num1,RI108Aux1,RI108CAu2,RI108NAu2,RI108Aux2,RI108CAu3,RI108NAu3,
+RI108Aux3,RI108Porc,convert(datetime,RI108Prev,121) as Ri108Prev,RI108Aju,RI108A101,RI108A102,RI108A103,RI108A104,RI108A105,RI108A106,RI108A107,RI108A108,RI108A109,RI108A110,RI108A111,RI108A112,RI108Id,RI108Anu,RI108Adm,RI108NrEL,
+RI108Tran,RI108aMod,RI108PreAn,RI108cge,RI108cgd,RI108cgc,RI108cgb,RI108cga,RI108RubP,RI108Pri
+from fri108
+inner join @refinanciadas on Cuenta=ri108cta and Operacion=ri108oper
+where ri108emp=1 and ri108fec<='20250228' and ri108mod in (101,102,103,104)
+order by ri108cta,ri108oper,ri108fec 
+Apr 03 12:15:49 err_ 6 _ < Historia atraso refinanciacione.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+Apr 03 12:15:49 inf_ 7 _ < Historia atraso refinanciadas.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/Historia atraso refinanciadas.csv'
+ Query:
+DECLARE @refinanciadas TABLE(Cuenta INT, Operacion INT)
+INSERT INTO @refinanciadas
+select r2cta, r2oper from fsr011 where r2mod in (101,102,103,104) and relcod in (500,650) and r011fc<='20250228'
+
+select RI108Emp,RI108Suc,RI108Mod,RI108Rub,RI108Mda,RI108Pap,RI108Cta,RI108Oper,RI108Sbop,RI108Tope,convert(datetime,RI108Fec,121) as RI108fec,RI108Tip,RI108Arb,RI108ImpO,RI108ImpA,RI108CGar,RI108SGar,RI108ImpD,RI108FecV,RI108EsVen,
+convert(float,RI108Plazo) as Ri108plazo,RI108Refin,RI108FecR,RI108Cod2,RI108NumO,RI108Cato,RI108CodS,RI108NumS,RI108CatS,RI108Cod3,RI108Num3,RI108Cat3,RI108Cod4,RI108Num4,RI108Cat4,RI108CodR,RI108NumR,RI108CatR,RI108CodP,
+RI108NumP,RI108CatP,RI108CodE,RI108NumE,RI108CatE,RI108CodSE,RI108NumSE,RI108CatSE,RI108CodG,RI108NumG,RI108CatG,RI108CAu1,RI108Num1,RI108Aux1,RI108CAu2,RI108NAu2,RI108Aux2,RI108CAu3,RI108NAu3,
+RI108Aux3,RI108Porc,RI108Prev,RI108Aju,RI108A101,RI108A102,RI108A103,RI108A104,RI108A105,RI108A106,RI108A107,RI108A108,RI108A109,RI108A110,RI108A111,RI108A112,RI108Id,RI108Anu,RI108Adm,RI108NrEL,
+RI108Tran,RI108aMod,RI108PreAn,RI108cge,RI108cgd,RI108cgc,RI108cgb,RI108cga,RI108RubP,RI108Pri
+from fri108
+inner join @refinanciadas on Cuenta=ri108cta and Operacion=ri108oper
+where ri108emp=1 and ri108fec<='20230930' and ri108mod in (101,102,103,104)
+
+EXCEPT 
+
+select RI108Emp,RI108Suc,RI108Mod,RI108Rub,RI108Mda,RI108Pap,RI108Cta,RI108Oper,RI108Sbop,RI108Tope,RI108Fec,RI108Tip,RI108Arb,RI108ImpO,RI108ImpA,RI108CGar,RI108SGar,RI108ImpD,RI108FecV,RI108EsVen,
+RI108Plazo,RI108Refin,RI108FecR,RI108Cod2,RI108NumO,RI108Cato,RI108CodS,RI108NumS,RI108CatS,RI108Cod3,RI108Num3,RI108Cat3,RI108Cod4,RI108Num4,RI108Cat4,RI108CodR,RI108NumR,RI108CatR,RI108CodP,
+RI108NumP,RI108CatP,RI108CodE,RI108NumE,RI108CatE,RI108CodSE,RI108NumSE,RI108CatSE,RI108CodG,RI108NumG,RI108CatG,RI108CAu1,RI108Num1,RI108Aux1,RI108CAu2,RI108NAu2,RI108Aux2,RI108CAu3,RI108NAu3,
+RI108Aux3,RI108Porc,RI108Prev,RI108Aju,RI108A101,RI108A102,RI108A103,RI108A104,RI108A105,RI108A106,RI108A107,RI108A108,RI108A109,RI108A110,RI108A111,RI108A112,RI108Id,RI108Anu,RI108Adm,RI108NrEL,
+RI108Tran,RI108aMod,RI108PreAn,RI108cge,RI108cgd,RI108cgc,RI108cgb,RI108cga,RI108RubP,RI108Pri
+from fri108
+inner join @refinanciadas on Cuenta=ri108cta and Operacion=ri108oper
+where ri108emp=1 and ri108fec<='20230930' and ri108mod in (101,102,103,104)
+and ri108cta in (135862,125192,147267,151746,162115,284761,358940,320506,343705,343705,347474,360061,360061,399768,368237,378700,169081,313379,313379,343799,374484)
+and ri108oper in (80325,122298,96717,82660,96281,12036,95617,14282,52238,67778,67846,84826,91430,121908,98773,113451,76518,7795,16164,63365,113485)
+order by ri108cta,ri108oper,ri108fec 
+Apr 03 12:16:01 err_ 7 _ < Historia atraso refinanciadas.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+Apr 03 12:16:01 inf_ 8 _ < LGD.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/LGD.csv'
+ Query:
+declare @fecha_corte date set @fecha_corte='20250228'
+
+DECLARE @FRI108_DEFAULT TABLE(pgcod INT, MOD INT, CTA INT, OPER INT, SUBOP INT, FRI108_FEC DATE)
+INSERT INTO @FRI108_DEFAULT
+select distinct fri108.ri108emp,aomod,aocta,aooper,aosbop,convert(date,min(RI108FEC),103) as FRI108_FEC from FRI108 inner join
+fsd010 on RI108CTA=aocta AND RI108OPER=AOOPER AND RI108TOPE=AOTOPE AND RI108MOD=AOMOD AND RI108SUC=AOSUC AND RI108SBOP=AOSBOP
+where ri108fec<=@fecha_corte and aomod in (101,102,103,104)
+AND RI108PLAZO>90 and RI108Rub like '1%'
+--and RI108FEC BETWEEN aofval and aofvto
+group by FRI108.RI108EMP,aomod,aocta,aooper,aosbop
+order by aocta,aooper,aosbop,FRI108_FEC
+
+select distinct convert(datetime,@fecha_corte,121) as Fecha_Corte,aosuc,aomod,aocta,aooper,aosbop,convert(float,aotasa) as Aotasa,convert(datetime,aofval,121) as aofval,
+convert(datetime,aofvto,121) as aofvto,convert(float,aoimp) as aoimp,convert(datetime,a.FRI108_FEC,121) as catfchdes,case when aostat=99 then convert(datetime,aofe99,121) else '19000101' end as aofe99 from fsd010 inner join
+@FRI108_DEFAULT a on a.cta=aocta and a.oper=aooper and a.subop=aosbop and a.mod=aomod where 
+aomod in (101,102,103,104) and aofval<=@fecha_corte and aofval>'20140430' /*and (aostat<>99 or aofe99>@fecha_corte)*/ and aofvto<=@fecha_corte
+and a.FRI108_FEC<=@fecha_corte --and a.FRI108_FEC between aofval and (case when aostat<>99 then aofvto when aofvto<=aofe99 then aofvto else aofe99 end)
+and aotope<>0 
+Apr 03 12:16:20 err_ 8 _ < LGD.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+Apr 03 12:16:20 inf_ 9 _ < Pun fin derl.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/Pun fin derl.csv'
+ Query:
+__GARRIGA__ 
+Apr 03 12:16:20 err_ 9 _ < Pun fin derl.csv >ERROR en 10.c! Query a la DB NO segura!
+Apr 03 12:16:20 inf_ 10 _ < Pun fin izql.csv > Iniciando armado archivo 'C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/Pun fin izql.csv'
+ Query:
+__GARRIGA__ 
+Apr 03 12:16:20 err_ 10 _ < Pun fin izql.csv >ERROR en 10.c! Query a la DB NO segura!
+Apr 03 12:16:20 ok_ >ok_ Se renombró listas/CSVs_list_LGD_prest.xlsx a listas/CSVs_list_LGD_prest_202504031213_err.xlsx
+Apr 03 12:16:20 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list_LGD_prest.xlsx                   
+Archivo de LOGs           ->  logs/qacsv_202504031213.log                       
+Lista CSVs Renombrada     ->  listas/CSVs_list_LGD_prest_202504031213_err.xlsx  
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+           10                        3                        7            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+           10                        3                        7            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (7):
+   1 2 _ < deudaAÑO.csv >
+   2 3 _ < TCR histórico.csv >
+   3 6 _ < Historia atraso refinanciacione.csv >
+   4 7 _ < Historia atraso refinanciadas.csv >
+   5 8 _ < LGD.csv >
+   6 9 _ < Pun fin derl.csv >
+   7 10 _ < Pun fin izql.csv >
+
+ - Lista de Errores de CSVs (7):
+   1 2 _ < deudaAÑO.csv >ERROR en 10.c! Query a la DB NO segura!
+   2 3 _ < TCR histórico.csv >ERROR en 10.c! Query a la DB NO segura!
+   3 6 _ < Historia atraso refinanciacione.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   4 7 _ < Historia atraso refinanciadas.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   5 8 _ < LGD.csv >ERROR en 10.d! Falló  Query a la DB
+                'NoneType' object is not iterable
+   6 9 _ < Pun fin derl.csv >ERROR en 10.c! Query a la DB NO segura!
+   7 10 _ < Pun fin izql.csv >ERROR en 10.c! Query a la DB NO segura!
+
+ - Lista de CSVs Creados (3):
+   1 1 _ < FSE900-ENVEJ.csv > - C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/FSE900-ENVEJ.csv
+   2 4 _ < BASE histórica (-12m).csv > - C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/BASE histórica (-12m).csv
+   3 5 _ < Cant cuotas por oper.csv > - C:/MTM_PCE_lgd_prest/CVS_202502/LGD_prest/Cant cuotas por oper.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (0):
+
+ - Lista de Errores de conexiones a DBs (0):
+
+ - Lista de DBs Conectadas (1):
+   1 1 _ * 172.31.119.50 Bantotal *
+
+

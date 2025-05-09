@@ -1,0 +1,58 @@
+Apr 03 11:57:41 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list_Coef_PD_EAD.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202504031157.log
+Apr 03 11:57:42 ok_ > listas/CSVs_list_Coef_PD_EAD.xlsx leído correctamente:
+    Periodo   Carpeta       Nombre archivo CSV             Server Base
+0  202502.0   Coef_PD  Operaciones con default  172.31.119.50 Bantotal
+1       NaN  Coef_EAD           Reestruct BCRA                     NaN
+Apr 03 11:57:42 ok_ > Fecha leída, Periodo: 202502.- Calculados; Fecha de corte: '20250228',
+            Corte del mismo mes del año anterior: '20240229' 
+Apr 03 11:57:42 inf_ Conexiones a DB a establecer:
+ ['172.31.119.50 Bantotal']
+Apr 03 11:57:42 inf_  DB_ Conectando con: 172.31.119.50 Bantotal...
+Apr 03 11:57:42 ok_ > DB_ Conexión con 172.31.119.50 Bantotal ESTABLECIDA! (1 _ * 172.31.119.50 Bantotal *)
+Apr 03 11:57:42 inf_ Iniciando procesamiento de queries a 172.31.119.50 Bantotal - 2 queries
+Apr 03 11:57:42 inf_ 1 _ < Operaciones con default.csv > Iniciando armado archivo 'C:/MTM_PCE_coef_pd_ead/CVS_202502/Coef_PD/Operaciones con default.csv'
+ Query:
+select ri108emp as pgcod,ri108mod as MOD,ri108cta as CTA,ri108oper as OPER,RI108Sbop as SUBOP,convert(datetime,min(ri108fec),121) as FRI108_fec 
+from fri108 where  ri108plazo>90 and ri108mod in (101,102,103,104) and ri108fec<='20250228'
+group by ri108emp,ri108mod,ri108cta,ri108oper,RI108Sbop 
+Apr 03 11:57:57 ok_ 1 _ < Operaciones con default.csv > Creado exitosamente 'C:/MTM_PCE_coef_pd_ead/CVS_202502/Coef_PD/Operaciones con default.csv' 
+Apr 03 11:57:57 inf_ 2 _ < Reestruct BCRA.csv > Iniciando armado archivo 'C:/MTM_PCE_coef_pd_ead/CVS_202502/Coef_EAD/Reestruct BCRA.csv'
+ Query:
+__COBOL__ 
+Apr 03 11:57:57 err_ 2 _ < Reestruct BCRA.csv >ERROR en 10.c! Query a la DB NO segura!
+Apr 03 11:57:57 ok_ >ok_ Se renombró listas/CSVs_list_Coef_PD_EAD.xlsx a listas/CSVs_list_Coef_PD_EAD_202504031157_err.xlsx
+Apr 03 11:57:57 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list_Coef_PD_EAD.xlsx                 
+Archivo de LOGs           ->  logs/qacsv_202504031157.log                       
+Lista CSVs Renombrada     ->  listas/CSVs_list_Coef_PD_EAD_202504031157_err.xlsx
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+            2                        1                        1            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+            2                        1                        1            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (1):
+   1 2 _ < Reestruct BCRA.csv >
+
+ - Lista de Errores de CSVs (1):
+   1 2 _ < Reestruct BCRA.csv >ERROR en 10.c! Query a la DB NO segura!
+
+ - Lista de CSVs Creados (1):
+   1 1 _ < Operaciones con default.csv > - C:/MTM_PCE_coef_pd_ead/CVS_202502/Coef_PD/Operaciones con default.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (0):
+
+ - Lista de Errores de conexiones a DBs (0):
+
+ - Lista de DBs Conectadas (1):
+   1 1 _ * 172.31.119.50 Bantotal *
+
+

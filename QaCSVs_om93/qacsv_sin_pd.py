@@ -1,16 +1,20 @@
 ##################################################################
-title = '''Queries a CSVs'''
+title = '''Queries a CSVs sin Pandas'''
 ##################################################################
 
 '''
-author: jm  |  ene2024 - mar2025
+qacsv_sin_pd.py
+    Script to generate CSVs from SQL Server DBs queries
+    It reads a list of queries from an Excel file and generates CSV files
+    qacsv_sin_pd.py es sin pandas SOLO para leer el query y escribir el csv
+    (para procesar "CSVs_list.xlsx" seguimos usando pandas)
 
-ver 1.4:
-    Add Datetime to Object convertion in order to show time
-    even if it's 0 with miliseconds (YYYY-MM-DD HH:MM:SS.mmm)
+author:
+    jm  |  ene2024 - mar2025
 
-ver 1.5:
-    Change csv output to utf-8 8 w/BOM instead only utf-8
+ver 1.0:
+
+
 '''
 
 
@@ -34,22 +38,22 @@ class MSSQLdb:
                'Lista de DBs Conectadas': []}
     
     def __init__(self, srv, db, usr=None, pwd=None, port=1433):
-        pyodbc.pooling = False
-        MSSQLdb.__cnt += 1
-        self.id = MSSQLdb.__cnt
-        self.drv = '{ODBC Driver 17 for SQL Server}'
+        pyodbc.pooling = False                          # ?
+        MSSQLdb.__cnt += 1                              
+        self.id = MSSQLdb.__cnt                         # Count of DBs connected
+        self.drv = '{ODBC Driver 17 for SQL Server}'    
         self.srv, self.port, self.db = srv, port, db
         self.usr, self.pwd = usr, pwd
         self.id_nm = f'''{self.id} _ * {self.srv} {self.db} *'''
-        if usr and pwd:
+        if usr and pwd:                                 # Conexión usando usuario y password
             cnxstr = f'DRIVER={self.drv};SERVER={self.srv};PORT={self.port};\
                 DATABASE={self.db};UID={self.usr};PWD={self.pwd}'
-        else:
+        else:                                           # Conexión usando Windows Authentication  
             cnxstr = f"DRIVER={self.drv};SERVER={self.srv};PORT={self.port};\
                 DATABASE={self.db};Trusted_Connection=yes"
-        self._cnx = pyodbc.connect(cnxstr)
-        self._cur = self._cnx.cursor()
-        self.closed = False
+        self._cnx = pyodbc.connect(cnxstr)              # connect to the DB
+        self._cur = self._cnx.cursor()                  # create a cursor
+        self.closed = False                             # flag to check if the connection is closed
 
     def close(self):
         self._cur.close()

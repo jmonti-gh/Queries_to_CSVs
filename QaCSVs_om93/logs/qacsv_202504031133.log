@@ -1,0 +1,80 @@
+Apr 03 11:33:12 inf_ > Ininciando ejecución de: qacsv
+~~~~ Queries a CSVs: construcción de archivos '.csv' según listado en: 'listas/CSVs_list_EAD_PCE.xlsx' ~~~~
+        --> LOG:  logs/qacsv_202504031133.log
+Apr 03 11:33:12 ok_ > listas/CSVs_list_EAD_PCE.xlsx leído correctamente:
+    Periodo    Carpeta       Nombre archivo CSV             Server Base
+0  202502.0  EAD_stage                      CNA  172.31.119.50 Bantotal
+1       NaN        NaN    FRI108 Atraso cliente                     NaN
+2       NaN        NaN  Saldos_no_utilizados_TC                     NaN
+Apr 03 11:33:12 ok_ > Fecha leída, Periodo: 202502.- Calculados; Fecha de corte: '20250228',
+            Corte del mismo mes del año anterior: '20240229' 
+Apr 03 11:33:12 inf_ Conexiones a DB a establecer:
+ ['172.31.119.50 Bantotal']
+Apr 03 11:33:12 inf_  DB_ Conectando con: 172.31.119.50 Bantotal...
+Apr 03 11:33:13 ok_ > DB_ Conexión con 172.31.119.50 Bantotal ESTABLECIDA! (1 _ * 172.31.119.50 Bantotal *)
+Apr 03 11:33:13 inf_ Iniciando procesamiento de queries a 172.31.119.50 Bantotal - 6 queries
+Apr 03 11:33:13 inf_ 1 _ < CNA.csv > Iniciando armado archivo 'C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/CNA.csv'
+ Query:
+select bccta,bcoper,convert(float,sum(bcsdmn)) as CobroNoAplicado from fsh012 
+where bcemp=1 and bcfech='20250228' and (bcrubr like '131792%' or bcrubr like '141192%') and bcsdmn<>0
+group by bccta,bcoper 
+Apr 03 11:33:19 ok_ 1 _ < CNA.csv > Creado exitosamente 'C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/CNA.csv' 
+Apr 03 11:33:19 inf_ 2 _ < FRI108 Atraso cliente.csv > Iniciando armado archivo 'C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/FRI108 Atraso cliente.csv'
+ Query:
+select RI108Emp,RI108Suc,RI108Mod,RI108Rub,RI108Mda,RI108Pap,RI108Cta,RI108Oper,RI108Sbop,RI108Tope,RI108Fec,RI108Tip,RI108Arb,RI108ImpO,RI108ImpA,RI108CGar,RI108SGar,RI108ImpD,RI108FecV,RI108EsVen,convert(float,RI108Plazo),RI108Refin,RI108FecR,RI108Cod2,RI108NumO,RI108Cato,RI108CodS,RI108NumS,RI108CatS,RI108Cod3,RI108Num3,RI108Cat3,RI108Cod4,RI108Num4,RI108Cat4,RI108CodR,RI108NumR,RI108CatR,RI108CodP,RI108NumP,RI108CatP,RI108CodE,RI108NumE,RI108CatE,RI108CodSE,RI108NumSE,RI108CatSE,RI108CodG,RI108NumG,RI108CatG,RI108CAu1,RI108Num1,RI108Aux1,RI108CAu2,RI108NAu2,RI108Aux2,RI108CAu3,RI108NAu3,RI108Aux3,RI108Porc,RI108Prev,RI108Aju,RI108A101,RI108A102,RI108A103,RI108A104,RI108A105,RI108A106,RI108A107,RI108A108,RI108A109,RI108A110,RI108A111,RI108A112,RI108Id,RI108Anu,RI108Adm,RI108NrEL,RI108Tran,RI108aMod,RI108PreAn,RI108cge,RI108cgd,RI108cgc,RI108cgb,RI108cga,RI108RubP,RI108Pri from fri108 (nolock) where ri108emp=1 and ri108fec='20250228' and ri108mod in (71,101,102,103,104,37) 
+Apr 03 11:33:50 ok_ 2 _ < FRI108 Atraso cliente.csv > Creado exitosamente 'C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/FRI108 Atraso cliente.csv' 
+Apr 03 11:33:50 inf_ 3 _ < Saldos_no_utilizados_TC.csv > Iniciando armado archivo 'C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/Saldos_no_utilizados_TC.csv'
+ Query:
+select bcsuc,bcrubr,bcmda,bcpap,bccta,bcoper,bcsbop,bctop,convert(float,bcsdmn) as bcsdmn from fsh012 (nolock) where bcemp=1 and bcrubr in (711083521,711083551) and bcfech='20250228' 
+Apr 03 11:33:52 ok_ 3 _ < Saldos_no_utilizados_TC.csv > Creado exitosamente 'C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/Saldos_no_utilizados_TC.csv' 
+Apr 03 11:33:52 inf_ 4 _ < Hoja total deuda info prev.csv > Iniciando armado archivo 'C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/Hoja total deuda info prev.csv'
+ Query:
+___GARRIGA___ 
+Apr 03 11:33:52 err_ 4 _ < Hoja total deuda info prev.csv >ERROR en 10.c! Query a la DB NO segura!
+Apr 03 11:33:52 inf_ 5 _ < cant cuotas pagadas por oper.csv > Iniciando armado archivo 'C:/MTM_PCE_ead_pce/CVS_202502/PCE_prest/cant cuotas pagadas por oper.csv'
+ Query:
+select ppcta,ppoper,ppsbop, count(*) as CantCuotas from fsd602 (nolock) where pgcod=1 and pp1stat='T' and ppmod in (101,102,103,104) and pp1fech<='20250228' and d602co='S'
+group by ppcta,ppoper,ppsbop 
+Apr 03 11:34:05 ok_ 5 _ < cant cuotas pagadas por oper.csv > Creado exitosamente 'C:/MTM_PCE_ead_pce/CVS_202502/PCE_prest/cant cuotas pagadas por oper.csv' 
+Apr 03 11:34:05 inf_ 6 _ < Categoria.csv > Iniciando armado archivo 'C:/MTM_PCE_ead_pce/CVS_202502/PCE_tarj/Categoria.csv'
+ Query:
+select * from fsd212 where catcod=4 and catfchdes='20250228' 
+Apr 03 11:34:35 ok_ 6 _ < Categoria.csv > Creado exitosamente 'C:/MTM_PCE_ead_pce/CVS_202502/PCE_tarj/Categoria.csv' 
+Apr 03 11:34:35 ok_ >ok_ Se renombró listas/CSVs_list_EAD_PCE.xlsx a listas/CSVs_list_EAD_PCE_202504031133_err.xlsx
+Apr 03 11:34:35 inf_   
+                             --- RESUMEN  ---                              
+
+Lista de CSVs a Procesar  ->  listas/CSVs_list_EAD_PCE.xlsx                     
+Archivo de LOGs           ->  logs/qacsv_202504031133.log                       
+Lista CSVs Renombrada     ->  listas/CSVs_list_EAD_PCE_202504031133_err.xlsx    
+
+ Nro. de CSVs a Procesar   Nro. de CSVs Creados    Nro. de CSVs NO creados 
+            6                        5                        1            
+
+ Nro. de CSVs Procesados   Nro. de CSVs Creados   Nro. de CSVs con Error de Procesamiento
+            6                        5                        1            
+
+# Resultado de CSVs Procesados en Conexiones Exitosas a DBs:
+ - Lista de CSVs con Error de Procesamiento (1):
+   1 4 _ < Hoja total deuda info prev.csv >
+
+ - Lista de Errores de CSVs (1):
+   1 4 _ < Hoja total deuda info prev.csv >ERROR en 10.c! Query a la DB NO segura!
+
+ - Lista de CSVs Creados (5):
+   1 1 _ < CNA.csv > - C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/CNA.csv
+   2 2 _ < FRI108 Atraso cliente.csv > - C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/FRI108 Atraso cliente.csv
+   3 3 _ < Saldos_no_utilizados_TC.csv > - C:/MTM_PCE_ead_pce/CVS_202502/EAD_stage/Saldos_no_utilizados_TC.csv
+   4 5 _ < cant cuotas pagadas por oper.csv > - C:/MTM_PCE_ead_pce/CVS_202502/PCE_prest/cant cuotas pagadas por oper.csv
+   5 6 _ < Categoria.csv > - C:/MTM_PCE_ead_pce/CVS_202502/PCE_tarj/Categoria.csv
+
+
+# Resultado de Conexiones a DBs Consultadas:
+ - Lista de conexiones a DB NO establecidas (0):
+
+ - Lista de Errores de conexiones a DBs (0):
+
+ - Lista de DBs Conectadas (1):
+   1 1 _ * 172.31.119.50 Bantotal *
+
+
